@@ -24,9 +24,9 @@ const Home = () => {
         
         {/* Seção - 1: Primeira Seção  */}
         
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-blue-200 to-purple-100 filter blur-3xl  absolute z-0 lg:ml-40 mt-4 "></div>
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-200 to-blue-100 filter blur-3xl  absolute z-0 ml-2 mt-44"></div>
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-100 to-orange-100 filter blur-3xl absolute z-0 lg:ml-96 mt-28"></div>
+        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-blue-200 to-purple-100 filter blur-3xl  absolute z-0 lg:ml-40 mt-4 2xl:mt-10 2xl:w-[28rem] 2xl:h-[28rem]"></div>
+        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-200 to-blue-100 filter blur-3xl absolute z-0 ml-2 mt-44 2xl:mt-26 2xl:w-[28rem] 2xl:h-[28rem]"></div>
+        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-100 to-orange-100 filter blur-3xl absolute z-0 lg:ml-96 mt-28 2xl:mt-44 2xl:w-[28rem] 2xl:h-[28rem]"></div>
         <div
           class="flex h-screen
         sm: md:mt-2 lg:mt-[1rem] -pt-28 lg:pl-12   
@@ -44,18 +44,18 @@ const Home = () => {
           >
             <h1
               class="text-black-4 font-semibold 
-               text-6xl relative"
+               text-6xl 2xl:text-7xl relative"
             >
               Use dados para <br />
               guiar suas{" "}
               <span class="relative inline-block ">
-                <div class="w-[16.5rem] h-4 bg-gradient-to-r from bg-orange-5 absolute top-10 left-0 z-0"></div>
+                <div class="w-[16.5rem] h-4 bg-gradient-to-r from bg-orange-5 absolute top-10 left-0 z-0 2xl:top-12 2xl:w-[20rem]"></div>
                 <span class="relative z-10 ">{text}</span>
                 <Cursor />
               </span>
             </h1>
 
-            <p class="text-orange-2  justify-center items-center  mt-8 sm:mt-20 md:mt-12 lg:mt-4  lg:w-[98%]	 text-lg">
+            <p class="text-orange-2  justify-center items-center  mt-8 sm:mt-20 md:mt-12 lg:mt-4  lg:w-[98%] text-lg 2xl:text-xl">
               Por meio de análise de dados, cognitivos e socioemocionais, a
               Mind&apos;s Up oferece uma visão integral, personalizada e
               acionável para seus estudantes, além de possibilitar novas formas
@@ -63,8 +63,9 @@ const Home = () => {
             </p>
           </div>
           {/* ------------------ IMAGEM DA HOME ----------------- */}
-          <div className="lg:block hidden">
-            <Image
+          <div className="lg:block hidden ">
+            <Image 
+              className="2xl: w-[900px] "
               src="/assets/images/SCENE.svg"
               alt="Imagem de garoto estudando"
               width={700}

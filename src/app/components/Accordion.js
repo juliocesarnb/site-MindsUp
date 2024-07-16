@@ -54,7 +54,7 @@ const Accordion = () => {
   return (
     <section id="secao2" className="min-h-screen bg-purple-1 rounded-3xl m-3">
       <div className="grid grid-cols-12 gap-4 lg:gap-8">
-        <div className="col-span-12 lg:w-[36rem] min-h-screen z-10 bg-purple-1 lg:col-span-5 lg:col-start-1 pt-28 lg:rounded-3xl">
+        <div className="col-span-12 lg:w-[36rem] 2xl:w-[50rem] min-h-screen z-10 bg-purple-1 lg:col-span-5 lg:col-start-1 pt-28 2xl:pt-[15rem] lg:rounded-3xl">
           <div className="divide-y w-[98%] divide-slate-700/20">
             {accordionData.map((item, index) => (
               <div
@@ -70,7 +70,7 @@ const Accordion = () => {
                     activeIndex === index
                       ? "text-purple-300"
                       : "hover:bg-purple-100"
-                  } text-purple-dark leading-130 text-xl lg:text-22px tracking-tighter`}
+                  } text-purple-dark leading-130 text-xl lg:text-22px 2xl: tracking-tighter`}
                 >
                   <button
                     className={`w-full flex text-black`}
@@ -80,24 +80,7 @@ const Accordion = () => {
                     onClick={() => handleAccordionClick(index)}
                   >
                     <span className="font-bold">{item.title}</span>
-                    {activeIndex === index && (
-                      <div className="absolute  text-purple-dark left-[90%]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className={`w-6 h-6 transition-opacity`}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                          />
-                        </svg>
-                      </div>
-                    )}
+                    
                   </button>
                 </h3>
                 <div
@@ -131,7 +114,7 @@ const Accordion = () => {
         <div className="relative hidden lg:col-span-7 lg:col-start-6 lg:block">
           <div className="h-full">
             <div className="relative pt-18 pl-16 w-[90%]">
-              <div className="rounded-3xl aspect-[3/2] h-full">
+              <div className="rounded-3xl 2xl:pt-[6rem]  2xl:pl-[7rem] aspect-[3/2] h-full">
                 {accordionData.map((item, index) => (
                   <div
                     key={index}
@@ -140,7 +123,7 @@ const Accordion = () => {
                     <Image
                       src={item.imageUrl}
                       alt={`Item ${index + 1}`}
-                      className="object-cover"
+                      className="object-cover 2xl:w-[750px]"
                       width={600}
                       height={600}
                     />
