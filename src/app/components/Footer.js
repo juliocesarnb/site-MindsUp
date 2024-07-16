@@ -7,6 +7,7 @@ import SpinAnimate from "./spinAnimate";
 const Footer = () => {
   const [loading, setLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,8 +18,22 @@ const Footer = () => {
     const nomeDaEscola = form.nomeDaEscola.value;
     const TipoDeInstituição = form.TipoDeInstituição.value;
 
-    // Verificação para garantir que todos os campos estejam preenchidos
-    if (!nome || !email || !telefone || !nomeDaEscola || !TipoDeInstituição) {
+    const errors = {};
+
+    if (!nome) errors.nome = "Por favor, insira seu nome.";
+    if (!email) errors.email = "Por favor, insira seu email.";
+    if (!telefone) errors.telefone = "Por favor, insira seu telefone.";
+    if (!nomeDaEscola) errors.nomeDaEscola = "Por favor, insira o nome da escola.";
+    if (!TipoDeInstituição) errors.TipoDeInstituição = "Por favor, selecione o tipo de instituição.";
+
+    const telefonePattern = /^\(\d{2}\) \d \d{4}-\d{4}$/;
+    if (telefone && !telefonePattern.test(telefone)) {
+      errors.telefone = "Por favor, insira um número de telefone válido no formato (99) 9 9999-9999.";
+    }
+
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
@@ -40,7 +55,6 @@ const Footer = () => {
         }),
       });
 
-      // Limpar os campos do formulário após o envio
       form.reset();
       setFormSubmitted(true);
     } catch (error) {
@@ -48,6 +62,23 @@ const Footer = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/[^\d]/g, "");
+    const phoneNumberLength = phoneNumber.length;
+
+    if (phoneNumberLength < 3) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2)}`;
+    }
+    return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 3)} ${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
+  };
+
+  const handlePhoneChange = (event) => {
+    const formattedPhoneNumber = formatPhoneNumber(event.target.value);
+    event.target.value = formattedPhoneNumber;
   };
 
   return (
@@ -63,7 +94,7 @@ const Footer = () => {
         </Link>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-around flex-wrap">
-        <div className="md:pb-20 pb-5 text-center">
+        <div className="md:pb-20 pb-9 text-center">
           <h3 className="text-3xl text-white mb-4">Quer saber mais?</h3>
           <p className="text-gray-1">
             Ajude-nos a conhecer sua escola e entender como podemos construir um
@@ -93,6 +124,9 @@ const Footer = () => {
                 className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
                 required
               />
+              {formErrors.email && (
+                <span className="text-red-500 text-sm">{formErrors.email}</span>
+              )}
             </div>
             <div className="block relative">
               <label
@@ -108,6 +142,9 @@ const Footer = () => {
                 className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
                 required
               />
+              {formErrors.nome && (
+                <span className="text-red-500 text-sm">{formErrors.nome}</span>
+              )}
             </div>
             <div className="block relative">
               <label
@@ -122,19 +159,15 @@ const Footer = () => {
                 id="telefone"
                 placeholder="(99) 9 9999-9999"
                 className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
-                pattern="[0-9]*"
-                minLength="10"
+                pattern="^\(\d{2}\) \d \d{4}-\d{4}$"
+                minLength="16"
+                maxLength="16"
                 required
-                onInvalid={(e) => {
-                  e.target.setCustomValidity("");
-                  if (!e.target.validity.valid) {
-                    e.target.setCustomValidity(
-                      "Por favor, insira um número de telefone válido."
-                    );
-                  }
-                }}
-                onChange={(e) => e.target.setCustomValidity("")}
+                onChange={handlePhoneChange}
               />
+              {formErrors.telefone && (
+                <span className="text-red-500 text-sm">{formErrors.telefone}</span>
+              )}
             </div>
 
             <div className="block relative">
@@ -151,6 +184,9 @@ const Footer = () => {
                 className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
                 required
               />
+              {formErrors.nomeDaEscola && (
+                <span className="text-red-500 text-sm">{formErrors.nomeDaEscola}</span>
+              )}
             </div>
             <div className="block relative">
               <label
@@ -174,50 +210,38 @@ const Footer = () => {
                   Secretária de Educação
                 </option>
               </select>
+              {formErrors.TipoDeInstituição && (
+                <span className="text-red-500 text-sm">{formErrors.TipoDeInstituição}</span>
+              )}
               <div className="absolute right-3 top-1/2 transform translate-y-1/4">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
                   fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-current"
                 >
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M5.46 7.71c.3-.29.77-.29 1.06 0L10 11.17l3.47-3.46a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 010-1.06z"
+                  ></path>
                 </svg>
               </div>
             </div>
+
             <button
               type="submit"
-              className="bg-[#7747ff] hover:bg-purple-900 w-60 m-auto px-6 py-3 rounded text-white text-sm font-normal"
+              disabled={loading}
+              className="bg-purple-2 hover:bg-[#7747ff] text-white rounded-md py-2 px-4 mt-4 transition-colors duration-300"
             >
               {loading ? <SpinAnimate /> : "Enviar"}
             </button>
           </form>
         </div>
 
-        <div className="flex flex-col items-center md:items-start mb-10 md:mb-0">
-          <div className="mb-2 text-white text-xl">Informações</div>
-          <Link href="/">
-            <div className="mb-2 text-gray-1 cursor-pointer hover:text-white">
-              Quem somos
-            </div>
-          </Link>
-          <Link href="/">
-            <div className="mb-2 text-gray-1 cursor-pointer hover:text-white">
-              Soluções
-            </div>
-          </Link>
-          <Link href="/">
-            <div className="text-gray-1 cursor-pointer hover:text-white">
-              Produtos
-            </div>
-          </Link>
-        </div>
+        
         <div className="flex flex-col items-center mt-7 gap-8 md:flex-row md:gap-16">
           <div className="flex flex-col items-center text-white gap-2">
             <svg

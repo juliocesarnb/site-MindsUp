@@ -15,15 +15,10 @@ const Home = () => {
   return (
     <main className="pt-[4rem]">
       <Background>
-        
         {" "}
-        
         {/*Background padrão */}
-        
         <Navbar /> {/* Menu superior */}
-        
         {/* Seção - 1: Primeira Seção  */}
-        
         <div class="w-96 h-96 rounded-full bg-gradient-to-br from-blue-200 to-purple-100 filter blur-3xl  absolute z-0 lg:ml-40 mt-4 2xl:mt-10 2xl:w-[28rem] 2xl:h-[28rem]"></div>
         <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-200 to-blue-100 filter blur-3xl absolute z-0 ml-2 mt-44 2xl:mt-26 2xl:w-[28rem] 2xl:h-[28rem]"></div>
         <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-100 to-orange-100 filter blur-3xl absolute z-0 lg:ml-96 mt-28 2xl:mt-44 2xl:w-[28rem] 2xl:h-[28rem]"></div>
@@ -33,15 +28,21 @@ const Home = () => {
         relative  z-10"
         >
           {/* ------------------ TEXTO H1 / AO LADO DA IMAGEM NA HOME 768px - responsividade do ipad mini pro footer ----------------- */}
-          
+
           <div
-            class="flex flex-col lg:-mt-44  md:w-4/4
-          lg:w-2/4
-          md:pl-[0rem] 
-          sm:text-center md:text-center  lg:text-left
-          text-center 
-          justify-center overflow-hidden"
-          >
+            class="
+            flex
+            flex-col
+            sm:text-center md:text-center
+            md:w-4/4
+            md:pl-[0rem] 
+            lg:-mt-44  
+            lg:w-2/4
+            lg:text-left
+            2xl:pl-[5rem]
+            text-center 
+            justify-center overflow-hidden"
+            >
             <h1
               class="text-black-4 font-semibold 
                text-6xl 2xl:text-7xl relative"
@@ -64,7 +65,7 @@ const Home = () => {
           </div>
           {/* ------------------ IMAGEM DA HOME ----------------- */}
           <div className="lg:block hidden ">
-            <Image 
+            <Image
               className="2xl: w-[900px] "
               src="/assets/images/SCENE.svg"
               alt="Imagem de garoto estudando"
