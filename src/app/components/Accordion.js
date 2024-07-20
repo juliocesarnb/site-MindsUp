@@ -51,36 +51,62 @@ const Accordion = () => {
     },
   ];
 
+  const getBackgroundColorClass = (index) => {
+    const colors = [
+      "bg-purple-100",
+      "bg-orange-100",
+      "bg-blue-100",
+      "bg-green-100",
+    ];
+    return colors[index % colors.length];
+  };
+
+  const getBlurClass = (index) => {
+    const blurClasses = [
+      "bg-purple-200",
+      "bg-orange-200",
+      "bg-blue-200 ",
+      "bg-green-200 ",
+    ];
+    return blurClasses[index % blurClasses.length];
+  };
+
   return (
-    <section id="secao2" className="min-h-screen bg-purple-1 rounded-3xl m-3">
+    <section
+      id="secao2"
+      className={`min-h-screen rounded-3xl m-3 ${getBackgroundColorClass(
+        activeIndex
+      )}`}
+    >
       <div className="grid grid-cols-12 gap-4 lg:gap-8">
-        <div className="col-span-12 lg:w-[36rem] 2xl:w-[50rem] min-h-screen z-10 bg-purple-1 lg:col-span-5 lg:col-start-1 pt-28 2xl:pt-[15rem] lg:rounded-3xl">
+        <div
+          className={`col-span-12 lg:w-[36rem] 2xl:w-[50rem] min-h-screen z-10 lg:col-span-5 lg:col-start-1 pt-28 2xl:pt-[15rem] lg:rounded-3xl ${getBackgroundColorClass(
+            activeIndex
+          )}`}
+        >
           <div className="divide-y w-[98%] divide-slate-700/20">
             {accordionData.map((item, index) => (
               <div
                 key={index}
                 className={`relative py-4 ${
                   activeIndex === index
-                    ? "bg-purple-200 rounded-lg"
-                    : "hover:bg-purple-100"
+                    ? `${getBlurClass(index)} rounded-lg`
+                    : ""
                 }`}
               >
                 <h3
                   className={`flex p-3 justify-start pl-9 ${
-                    activeIndex === index
-                      ? "text-purple-300"
-                      : "hover:bg-purple-100"
+                    activeIndex === index ? "text-purple-300" : ""
                   } text-purple-dark leading-130 text-xl lg:text-22px 2xl: tracking-tighter`}
                 >
                   <button
-                    className={`w-full flex text-black`}
+                    className={`w-full flex text-gray-700`}
                     type="button"
                     aria-expanded={activeIndex === index ? "true" : "false"}
                     aria-controls={`accordion1sect${index}`}
                     onClick={() => handleAccordionClick(index)}
                   >
                     <span className="font-bold">{item.title}</span>
-                    
                   </button>
                 </h3>
                 <div
@@ -95,7 +121,9 @@ const Accordion = () => {
                     overflow: "hidden",
                   }}
                 >
-                  <div className="pl-9 text-black-5">{item.description}</div>
+                  <div className="pl-9 font-medium text-gray-600">
+                    {item.description}
+                  </div>
                   <div className="pt-2 lg:hidden">
                     <Image
                       src={item.imageUrl}

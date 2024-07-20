@@ -58,6 +58,10 @@ module.exports = {
         'blue-2':'#0B2E47',
         'blue-dark':'#2B2D42',
         'purple-dark':'#22162B',
+        'purple-acc': '#CDC7E5',
+        'orange-acc': '#F6FEDB',
+        'green-acc': '#CAE7B9',
+        
       },
       height: {
         '128': '36rem',
