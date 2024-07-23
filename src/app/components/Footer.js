@@ -1,8 +1,8 @@
-"use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import SpinAnimate from "./spinAnimate";
+'use client';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import SpinAnimate from './spinAnimate';
 
 const Footer = () => {
   const [loading, setLoading] = useState(false);
@@ -20,15 +20,15 @@ const Footer = () => {
 
     const errors = {};
 
-    if (!nome) errors.nome = "Por favor, insira seu nome.";
-    if (!email) errors.email = "Por favor, insira seu email.";
-    if (!telefone) errors.telefone = "Por favor, insira seu telefone.";
-    if (!nomeDaEscola) errors.nomeDaEscola = "Por favor, insira o nome da escola.";
-    if (!TipoDeInstituição) errors.TipoDeInstituição = "Por favor, selecione o tipo de instituição.";
+    if (!nome) errors.nome = 'Por favor, insira seu nome.';
+    if (!email) errors.email = 'Por favor, insira seu email.';
+    if (!telefone) errors.telefone = 'Por favor, insira seu telefone.';
+    if (!nomeDaEscola) errors.nomeDaEscola = 'Por favor, insira o nome da escola.';
+    if (!TipoDeInstituição) errors.TipoDeInstituição = 'Por favor, selecione o tipo de instituição.';
 
     const telefonePattern = /^\(\d{2}\) \d \d{4}-\d{4}$/;
     if (telefone && !telefonePattern.test(telefone)) {
-      errors.telefone = "Por favor, insira um número de telefone válido no formato (99) 9 9999-9999.";
+      errors.telefone = 'Por favor, insira um número de telefone válido no formato (99) 9 9999-9999.';
     }
 
     setFormErrors(errors);
@@ -40,11 +40,11 @@ const Footer = () => {
     setLoading(true);
 
     try {
-      await fetch("https://api.sheetmonkey.io/form/vJLJWkdPkv7t55idHgv5Yd", {
-        method: "post",
+      await fetch('https://api.sheetmonkey.io/form/vJLJWkdPkv7t55idHgv5Yd', {
+        method: 'post',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           nome,
@@ -58,7 +58,7 @@ const Footer = () => {
       form.reset();
       setFormSubmitted(true);
     } catch (error) {
-      console.error("Erro ao enviar o formulário:", error);
+      console.error('Erro ao enviar o formulário:', error);
     } finally {
       setLoading(false);
     }
@@ -66,7 +66,7 @@ const Footer = () => {
 
   const formatPhoneNumber = (value) => {
     if (!value) return value;
-    const phoneNumber = value.replace(/[^\d]/g, "");
+    const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
 
     if (phoneNumberLength < 3) return phoneNumber;
@@ -93,8 +93,8 @@ const Footer = () => {
           />
         </Link>
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-around flex-wrap">
-        <div className="md:pb-20 pb-9 text-center">
+      <div className="flex flex-col items-center justify-center">
+        <div className="text-center mb-10">
           <h3 className="text-3xl text-white mb-4">Quer saber mais?</h3>
           <p className="text-gray-1">
             Ajude-nos a conhecer sua escola e entender como podemos construir um
@@ -104,7 +104,7 @@ const Footer = () => {
             Preencha o formulário abaixo e fale conosco.
           </p>
         </div>
-        <div className="w-full md:w-1/2 p-4 rounded-md text-black bg-white mb-10 md:mb-0">
+        <div className="w-full md:w-1/2 p-4 rounded-md text-black bg-white mb-10">
           <div className="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">
             Entre em <span className="text-[#7747ff]">contato</span>
           </div>
@@ -236,13 +236,12 @@ const Footer = () => {
               disabled={loading}
               className="bg-purple-2 hover:bg-[#7747ff] text-white rounded-md py-2 px-4 mt-4 transition-colors duration-300"
             >
-              {loading ? <SpinAnimate /> : "Enviar"}
+              {loading ? <SpinAnimate /> : 'Enviar'}
             </button>
           </form>
         </div>
-
         
-        <div className="flex flex-col items-center mt-7 gap-8 md:flex-row md:gap-16">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:gap-16">
           <div className="flex flex-col items-center text-white gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -284,6 +283,9 @@ const Footer = () => {
             </span>
           </div>
         </div>
+      </div>
+      <div className="text-center text-gray-300 mt-10">
+      Copyright © {new Date().getFullYear()} MindsUp   
       </div>
     </footer>
   );

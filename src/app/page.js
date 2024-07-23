@@ -33,11 +33,12 @@ const Home = () => {
             class="
             flex
             flex-col
-            sm:text-center md:text-center
+            sm:text-center
+            md:text-center
             md:w-4/4
             md:pl-[0rem] 
             lg:-mt-44  
-            lg:w-2/4
+            lg:w-[55rem]
             lg:text-left
             2xl:pl-[5rem]
             text-center 
@@ -49,6 +50,8 @@ const Home = () => {
             >
               Use dados para <br />
               guiar suas{" "}
+
+              {/* --------------- Span com a linha sublinhada Laranja ------------------ */}
               <span class="relative inline-block ">
                 <div class="w-[16.5rem] h-4 bg-gradient-to-r from bg-orange-5 absolute top-10 left-0 z-0 2xl:top-12 2xl:w-[20rem]"></div>
                 <span class="relative z-10 ">{text}</span>
