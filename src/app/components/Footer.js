@@ -40,7 +40,7 @@ const Footer = () => {
     setLoading(true);
 
     try {
-      await fetch('https://api.sheetmonkey.io/form/vJLJWkdPkv7t55idHgv5Yd', {
+      await fetch('https://api.sheetmonkey.io/form/sDhFWGWEjEqYTXZscnRmnQ', {
         method: 'post',
         headers: {
           Accept: 'application/json',
@@ -82,7 +82,7 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contatos" className="bg-purple-2 px-10 py-10 min-h-screen">
+    <footer id="contatos" className="bg-[#581FB6] px-10 py-10 min-h-screen">
       <div className="flex justify-center md:justify-start p-10">
         <Link href="/">
           <Image
@@ -95,7 +95,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="text-center mb-10">
-          <h3 className="text-3xl text-white mb-4">Quer saber mais?</h3>
+          <h3 className="text-5xl text-white mb-4">Quer saber mais?</h3>
           <p className="text-gray-1">
             Ajude-nos a conhecer sua escola e entender como podemos construir um
             caso de sucesso!
@@ -234,7 +234,7 @@ const Footer = () => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-purple-2 hover:bg-[#7747ff] text-white rounded-md py-2 px-4 mt-4 transition-colors duration-300"
+              className="bg-[#581FB6] hover:bg-[#7747ff] text-white rounded-md py-2 px-4 mt-4 transition-colors duration-300"
             >
               {loading ? <SpinAnimate /> : 'Enviar'}
             </button>
