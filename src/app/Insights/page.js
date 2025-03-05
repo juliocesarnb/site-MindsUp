@@ -14,15 +14,15 @@ const RandomImages = () => {
     if (imageIndexes.length === 0) return;
 
     const randomIndex = Math.floor(Math.random() * imageIndexes.length);
-    const imageToShow = imageIndexes.splice(randomIndex, 1)[0];
+    const imageToShow = imageIndexes.splice(randomIndex, 1)[0]; //Não entendi essa linha
 
     setVisibleImages((prev) => {
-      const newVisibleImages = [...prev];
+      const newVisibleImages = [...prev]; //Não entendi essa linha
       newVisibleImages[imageToShow] = true;
       return newVisibleImages;
     });
 
-    timeoutIdsRef.current.push(
+    timeoutIdsRef.current.push( //Não entendi essa linha
       setTimeout(() => showRandomImage(imageIndexes), Math.random() * 500 + 300)
     );
   };

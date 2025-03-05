@@ -20,7 +20,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": ".", // Add this line
+    "paths": {
+      "@/*": ["./src/*"] // Add this line
+    }
   },
   "include": [
     "next-env.d.ts",

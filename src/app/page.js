@@ -59,7 +59,7 @@ const Home = () => {
               </span>
             </h1>
 
-            <p class="text-orange-2  justify-center items-center  mt-8 sm:mt-20 md:mt-12 lg:mt-[3rem]  lg:w-[98%] text-lg 2xl:text-xl">
+            <p class="text-orange-2  justify-center items-center  mt-8 sm:mt-20 md:mt-12 lg:mt-[3rem] lg:w-[98%] text-lg 2xl:text-xl">
               Por meio de análise de dados, cognitivos e socioemocionais, a
               Mind&apos;s Up oferece uma visão integral, personalizada e
               acionável para seus estudantes, alsém de possibilitar novas formas

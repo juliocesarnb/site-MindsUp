@@ -60,7 +60,7 @@ const Faq = () => {
         <Navbar /> {/* Menu superior */}
       <div className="max-w-3xl mx-auto p-6 pt-[12rem]">
         <h1 className="text-4xl font-bold text-purple-700 text-center mb-12">
-          All the As to your Qs
+          Perguntas frequentes
         </h1>
 
         <div className="space-y-4">

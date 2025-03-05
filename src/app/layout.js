@@ -1,37 +1,55 @@
+'use client'; // Adicione isso para usar hooks e estados
+
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { useEffect, useState } from "react";
+import { metadata } from "./metadata"; // Importe a metadata
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Minds Up",
-  description: "Inteligência Socioemocional",
-  icons: {
-    icon: [
-      { url: '/favicon.ico?v=4', type: 'image/x-icon' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' }
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png?v=4', sizes: '180x180' }
-    ],
-    shortcut: [
-      { url: '/apple-touch-icon.png' }
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#5bbad5' }
-    ]
-  },
-  // Adicionando manifest para PWA
-  manifest: '/site.webmanifest',
-  // Adicionando theme color
-  themeColor: '#ffffff'
-};
-
 export default function RootLayout({ children }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Verifica o tema salvo no localStorage ou a preferência do sistema
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  // Função para alternar o tema
+  const toggleTheme = () => {
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+      setIsDarkMode(true);
+    }
+  };
+
   return (
-    <html lang="pt">
-      <body className={inter.className}>{children}</body>
+    <html lang="pt" className={isDarkMode ? "dark" : ""}>
+      <body className={`${inter.className} bg-white dark:bg-gray-900 text-black dark:text-white`}>
+        {/* Botão de alternância de tema (opcional) */}
+        <button
+          onClick={toggleTheme}
+          className="fixed bottom-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full"
+        >
+          {isDarkMode ? "🌙" : "☀️"}
+        </button>
+
+        {children}
+      </body>
     </html>
   );
-}
+};
