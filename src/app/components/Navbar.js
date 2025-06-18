@@ -56,7 +56,7 @@ const Navbar = () => {
     {
       title: "FAQ",
       icon: "/assets/images/navbar-icones/icone-question-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-question-navbar-hover.svg",
+      hoverIcon: "/assets/images/navbar-icones/icone-hover-question-navbar.svg",
       link: "/faq",
     },
   ];
@@ -89,8 +89,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full h-[6rem] z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white shadow-lg py-2 dark:bg-gray-900"
-          : "bg-white py-4 dark:bg-gray-900"
+          ? "bg-[#FFFCFA] shadow-lg py-2 dark:bg-gray-900"
+          : "bg-[#FFFCFA] py-4 dark:bg-gray-900"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
@@ -110,7 +110,7 @@ const Navbar = () => {
           <NavigationMenu>
             <NavigationMenuList className="flex items-center gap-8">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400">
+                <NavigationMenuTrigger className="font-inter text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400">
                   Quem somos
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="dark:backdrop-blur-[60%] backdrop-blur-[60%] p-4 rounded-xl shadow-lg w-[300px]">
@@ -137,7 +137,7 @@ const Navbar = () => {
                             className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-0 left-0"
                           />
                         </div>
-                        <span className="text-gray-800 dark:text-white font-medium ">
+                        <span className="text-gray-800 font-inter dark:text-white font-medium">
                           {item.title}
                         </span>
                       </Link>
@@ -175,10 +175,10 @@ const Navbar = () => {
                           />
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-gray-800 dark:text-white font-medium">
+                          <span className="text-gray-800 font-inter dark:text-white font-medium">
                             {solution.title}
                           </span>
-                          <span className="text-sm text-gray-600 dark:text-gray-300">
+                          <span className="text-sm text-gray-600 font-inter dark:text-gray-300">
                             {solution.description}
                           </span>
                         </div>
@@ -191,7 +191,7 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <Link
                   href="#produtos"
-                  className="text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
+                  className="text-gray-700 font-inter font-medium hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
                 >
                   Produtos
                 </Link>
@@ -200,24 +200,49 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <Link
                   href="#contatos"
-                  className="text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
+                  className="text-gray-700 font-inter font-medium hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
                 >
                   Contatos
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full transition-colors hover:bg-gray-300 dark:hover:bg-gray-600"
-                  aria-label="Toggle dark mode"
-                >
-                  {isDarkMode ? (
-                    <span className="text-lg">🌙</span>
-                  ) : (
-                    <span className="text-lg">☀️</span>
-                  )}
-                </button>
+                <div className="relative w-[60px] h-[28px]">
+                  <label className="absolute w-full h-full bg-gray-300 dark:bg-gray-800 rounded-full cursor-pointer border-2 border-gray-700 dark:border-gray-300 flex items-center justify-between px-1">
+                    <input
+                      type="checkbox"
+                      className="hidden peer"
+                      checked={isDarkMode}
+                      onChange={toggleTheme}
+                    />
+                    {/* Ícone do Sol (modo claro) */}
+                    <span
+                      className={`w-5 h-5 transition-opacity duration-300 ${
+                        isDarkMode ? "opacity-0" : "opacity-100"
+                      }`}
+                    >
+                      <Image
+                        src="/assets/images/sol.svg"
+                        alt="Sol"
+                        width={20}
+                        height={20}
+                      />
+                    </span>
+                    {/* Ícone da Lua (modo escuro) */}
+                    <span
+                      className={`w-5 h-5 transition-opacity duration-300 ${
+                        isDarkMode ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      <Image
+                        src="/assets/images/lua.svg"
+                        alt="Lua"
+                        width={20}
+                        height={20}
+                      />
+                    </span>
+                  </label>
+                </div>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

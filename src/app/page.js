@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Navbar from "./components/Navbar";
 import Background from "./components/Background";
 import Footer from "./components/Footer";
@@ -12,75 +12,93 @@ const Home = () => {
     words: ["decisões", "intuições", "soluções"],
     loop: {},
   });
+
   return (
-    <main className="">
+    <main className="bg-gradient-to-r from-[#FFFCFA] to-white text-[#2D2D2D] dark:bg-black dark:text-gray-100 font-inter">
       <Background>
-        {" "}
-        {/*Background padrão */}
-        <Navbar /> {/* Menu superior */}
-        {/* Seção - 1: Primeira Seção  */}
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-blue-200 to-purple-100 filter blur-3xl  absolute z-0 lg:ml-40 mt-4 2xl:mt-10 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-200 to-blue-100 filter blur-3xl absolute z-0 ml-2 mt-44 2xl:mt-26 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-        <div class="w-96 h-96 rounded-full bg-gradient-to-br from-purple-100 to-orange-100 filter blur-3xl absolute z-0 lg:ml-96 mt-28 2xl:mt-44 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-        <div
-          class="flex h-[80vh]
-        sm: md:mt-2 lg:mt-[6rem] -pt-28 lg:pl-12   
-        relative  z-10"
-        >
-          {/* ------------------ TEXTO H1 / AO LADO DA IMAGEM NA HOME 768px - responsividade do ipad mini pro footer ----------------- */}
+        <Navbar />
 
-          <div
-            class="
-            flex
-            flex-col
-            sm:text-center
-            md:text-center
-            md:w-4/4
-            md:pl-[0rem] 
-            lg:-mt-44  
-            lg:w-[55rem]
-            lg:text-left
-            2xl:pl-[5rem]
-            text-center 
-            justify-center overflow-hidden"
-            >
-            <h1
-              class="text-[#523624] font-semibold 
-               text-6xl 2xl:text-7xl relative"
-            >
-              Use dados para <br />
-              guiar suas{" "}
+        <div className="absolute w-full h-full bg-gradient-to-br from-blue-50/30 to-purple-50/30 dark:from-gray-800/30 dark:to-gray-900/30 opacity-50"></div>
 
-              {/* --------------- Span com Sa linha sublinhada Laranja ------------------ */}
-              <span class="relative inline-block ">
-                <div class="w-[16.5rem] rounded-xl h-4 bg-gradient-to-r from bg-orange-300 absolute top-10 left-0 z-0 2xl:top-12 2xl:w-[20rem]"></div>
-                <span class="relative z-10 ">{text}</span>
+        <div className="flex flex-col items-center justify-center min-h-screen px-6 lg:px-16 xl:px-24 relative z-10 max-w-7xl mx-auto text-center pt-[12rem]">
+          {/* Asterisco Superior Esquerdo */}
+          <Image
+            src="/assets/images/asterisco-maior.svg"
+            width={100}
+            height={100}
+            alt="Asterisco Superior"
+            className="absolute left-[10rem] top-[15rem]"
+          />
+
+          {/* Texto Principal */}
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 dark:text-gray-100">
+              Use dados{" "}
+              <span className=" inline-block">
+                <span className=" inline-block w-full">
+                  <span className="relative z-10">otimizados</span>
+                  <Image
+                    src="/assets/images/Elipse.svg"
+                    alt="Círculo"
+                    width={10} // Ajuste esse valor conforme necessário
+                    height={30} // Mantenha uma proporção adequada
+                    className="absolute top-[17.3rem] left-[49%] w-[31%]" // Adicionado width e transformação
+                  />
+                </span>
+              </span>{" "}
+              para guiar suas <br />
+              <span className="text-orange-400 dark:text-orange-300 relative inline-block">
+                {/* <span className=" bottom-0 left-0 w-full h-2 bg-orange-200 z-10 dark:bg-orange-400/50 rounded-full"></span> */}
+
+                {text}
+
                 <Cursor />
               </span>
+              <Image
+                src="/assets/images/asterisco-menor.svg"
+                width={50}
+                height={50}
+                alt="Asterisco"
+                className="inline-block ml-2"
+              />
             </h1>
 
-            <p class="text-orange-2  justify-center items-center  mt-8 sm:mt-20 md:mt-12 lg:mt-[3rem] lg:w-[98%] text-lg 2xl:text-xl">
-              Por meio de análise de dados, cognitivos e socioemocionais, a
-              Mind&apos;s Up oferece uma visão integral, personalizada e
-              acionável para seus estudantes, alsém de possibilitar novas formas
-              de engajamento de estudantes, pais e professores.
+            <p className="mt-[5rem] text-lg md:text-xl text-[#4A4A4A] dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              Por meio de análise de dados cognitivos e socioemocionais, a Minds
+              Up oferece uma visão integral, personalizada e acionável para seus
+              estudantes, além de possibilitar novas formas de engajamento de
+              estudantes, pais e professores.
             </p>
-          </div>
-          {/* ------------------ IMAGEM DA HOME ----------------- */}
-          <div className="lg:block hidden ">
-            <Image
-              className="2xl: w-[640px] ml-[10rem] mt-[4rem]"
-              src="/assets/images/estudante-frente-dados.svg"
-              alt="Imagem de garoto estudando"
-              width={700}
-              height={700}
-            />
+
+            <div className="mt-10">
+              <button className="bg-orange-300 text-gray-900 dark:bg-orange-400 dark:text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-orange-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 dark:focus:ring-gray-600">
+                Saiba mais
+              </button>
+              <div className="arrows-animation mt-[5rem] flex flex-col items-center z-10">
+               
+                <svg
+                  className="animate-bounce my-2"
+                  style={{ animationDelay: "0.5s", animationDuration: "1.5s" }}
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M17 6L12 11L7 6M17 13L12 18L7 13"
+                    stroke="#383837"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                
+              </div>
+            </div>
           </div>
         </div>
-        {/*segunda seção:: soluções */}
-        {/*container dropdown*/}
-        {/*Titulo do Dropdown*/}
-        {/*dropdown com informações sobre as soluções*/}
+
         <HorizontalScroll />
         <Section3 />
         <Footer />

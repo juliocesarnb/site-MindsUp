@@ -9,11 +9,11 @@ const Section3 = () => {
       id="produtos"
       className="min-h-screen pt-[5rem] mt-12 mb-12 2xl:mb-1"
     >
-      <h2 className="text-black-4 font-semibold text-6xl 2xl:text-7xl flex justify-center items-center text-5xl text-center mb-10 2xl:text-6xl">
+      <h2 className="text-black-4 dark:text-white font-semibold text-6xl 2xl:text-7xl flex justify-center items-center text-5xl text-center mb-10 2xl:text-6xl">
         Inteligência de dados voltada <br /> para a melhoria da escola
       </h2>
 
-      <p className="text-black-3 flex justify-center items-center text-center mb-20 2xl:text-xl">
+      <p className="text-black-3 dark:text-black-1 flex justify-center items-center text-center mb-20 2xl:text-xl">
         Nossos instrumentos foram desenvolvidos para traduzirem características
         complexas <br /> dos atores educacionais (estudantes, pais e
         professores) de forma simples, concisa e<br /> focadas na melhoria dos
@@ -21,104 +21,78 @@ const Section3 = () => {
       </p>
 
       {/*-------------- Container dos cards ------------ */}
-      <div className="flex flex-wrap justify-center lg:flex-nowrap gap-24 mx-5">
-        {/*-------------- cards Roxo abaixo ------------ */}
-        <div className="group relative w-[450px] h-[470px] bg-purple-200 flex items-center justify-center text-[25px] font-bold rounded-[15px] cursor-pointer overflow-hidden">
-          <div className="absolute top-0 right-0 w-[20%] h-[20%] bg-purple-300 rounded-tr-[15px] rounded-bl-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="absolute bottom-0 left-0 w-[20%] h-[20%] bg-purple-300 rounded-bl-[15px] rounded-tr-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="relative z-10 text-center mb-14 group-hover:opacity-0 transition-opacity duration-300">
-            <div className="mb-4 flex justify-center items-center">
-              <Image
-                src="/assets/images/socioemocional-ilustrations/quebracabeca.svg"
-                alt="Logo da empresa"
-                width={74}
-                height={74}
-              />
-            </div>
-            <h2 className="text-2xl 2xl:text-4xl text-purple-400 font-bold mb-3">
-              <span className="text-purple-500">Mind&apos;s Up</span> <br />
-              <span className="text-purple-500">Socioemocional</span>
-            </h2>
+      <div className="flex flex-wrap justify-center lg:flex-nowrap gap-8 mx-5">
+        {/*-------------- Card Roxo ------------ */}
+        <div className="w-[450px] h-[510px] bg-purple-100 flex flex-col items-center justify-center rounded-[15px] p-9 pb-[4rem]">
+          <div className="w-[104px] h-[104px] bg-[#D06BFF] rounded-full flex items-center justify-center mb-6">
+            <Image
+            className="mr-[0.2rem]"
+              src="/assets/images/socioemocional-ilustrations/quebra-cabeca.svg"
+              alt="Ícone de quebra-cabeça"
+              width={55}
+              height={55}
+            />
           </div>
-          <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-purple-400 text-center p-4 transition-all duration-500 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
-            <p className="text-[#f5e8fc] text-2xl mb-8">
-              <span className="text-purple-100">
-                Ferramenta de mensuração das habilidades socioemocionais.
-              </span>
-            </p>
-            <Link
-              href="/Socioemocional"
-              className="inline-block bg-purple-500 z-10 text-white px-6 py-2 rounded-lg text-lg hover:bg-orange-600 transition"
-            >
-              Saiba Mais
-            </Link>
-          </div>
+          <h2 className="text-3xl text-center font-bold mb-3 text-[#43157A]">
+            MindsUP <br /> <span className="text-[#9717AB]"> Socioemocional </span>
+          </h2>
+          <p className="text-gray-500 text-center text-md mb-6">
+            Ferramenta de mensuração das habilidades socioemocionais.
+          </p>
+          <Link
+            href="/Socioemocional"
+            className="bg-[#A855F7] text-white px-[5rem] py-3 rounded-full text-lg hover:bg-[#9335D8] transition"
+          >
+            Saiba mais
+          </Link>
         </div>
 
-        {/*-------------- cards Azul abaixo ------------ */}
-        <div className="group relative w-[450px] h-[470px] bg-blue-200 flex items-center justify-center text-[25px] font-bold rounded-[15px] cursor-pointer overflow-hidden">
-          <div className="absolute top-0 right-0 w-[20%] h-[20%] bg-blue-300 rounded-tr-[15px] rounded-bl-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="absolute bottom-0 left-0 w-[20%] h-[20%] bg-blue-300 rounded-bl-[15px] rounded-tr-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="relative z-10 text-center mb-14 group-hover:opacity-0 transition-opacity duration-300">
-            <div className="mb-4 flex justify-center items-center">
-              <Image
-                src="/assets/images/simulados-ilustration/exam.svg"
-                alt="Logo da empresa"
-                width={74}
-                height={74}
-              />
-            </div>
-            <h2 className="text-2xl 2xl:text-4xl text-purple-400 font-bold mb-3">
-              <span className="text-blue-500">Mind&apos;s Up</span> <br />
-              <span className="text-blue-500">Simulados</span>
-            </h2>
+        {/*-------------- Card Laranja ------------ */}
+        <div className="w-[450px] h-[510px] bg-orange-100 flex flex-col items-center justify-center rounded-[15px] p-6 pb-[4rem]">
+          <div className="w-[104px] h-[104px] bg-[#FFC66B] rounded-full flex items-center justify-center mb-6">
+            <Image
+              src="/assets/images/insights-ilustration/lightning.svg"
+              alt="Ícone de raio"
+              width={60}
+              height={60}
+            />
           </div>
-          <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-blue-400 text-center p-4 transition-all duration-500 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
-            <p className="text-[#f5e8fc] text-2xl mb-8">
-              <span className="text-blue-100">
-                Ferramenta de mensuração das habilidades socioemocionais.
-              </span>
-            </p>
-            <Link
-              href="/Simulados"
-              className="inline-block bg-blue-500 z-10 text-white px-6 py-2 rounded-lg text-lg hover:bg-orange-600 transition"
-            >
-              Saiba Mais
-            </Link>
-          </div>
+          <h2 className="text-3xl text-center font-bold mb-3 text-[#63351C]">
+            MindsUP <br /> <span className="text-[#AB6117]"> Insights </span>
+          </h2>
+          <p className="text-gray-500 text-center text-md mb-6">
+            Ferramenta de mensuração das habilidades socioemocionais.
+          </p>
+          <Link
+            href="/Insights"
+            className="px-[5rem] py-3 bg-[#F59E0B] text-white px-6 py-2 rounded-full text-lg hover:bg-[#D97706] transition"
+          >
+            Saiba mais
+          </Link>
         </div>
 
-        {/*-------------- cards Laranja abaixo ------------ */}
-        <div className="group relative w-[450px] h-[470px] bg-orange-200 flex items-center justify-center text-[25px] font-bold rounded-[15px] cursor-pointer overflow-hidden">
-          <div className="absolute top-0 right-0 w-[20%] h-[20%] bg-orange-300 rounded-tr-[15px] rounded-bl-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="absolute bottom-0 left-0 w-[20%] h-[20%] bg-orange-300 rounded-bl-[15px] rounded-tr-[100%] transition-all duration-500 group-hover:w-full group-hover:h-full group-hover:rounded-[15px]" />
-          <div className="relative z-10 text-center mb-14 group-hover:opacity-0 transition-opacity duration-300">
-            <div className="mb-4 flex justify-center items-center">
-              <Image
-                src="/assets/images/insights-ilustration/lightning.svg"
-                alt="Logo da empresa"
-                width={74}
-                height={74}
-              />
-            </div>
-            <h2 className="text-2xl 2xl:text-4xl text-purple-400 font-bold mb-3">
-              <span className="text-orange-500">Mind&apos;s Up</span> <br />
-              <span className="text-orange-500">Insights</span>
-            </h2>
+        {/*-------------- Card Azul ------------ */}
+        <div className="w-[450px] h-[510px] bg-blue-100 flex flex-col items-center justify-center rounded-[15px] p-6 pb-[4rem]">
+          <div className="w-[104px] h-[104px] bg-[#6BBDFF] rounded-full flex items-center justify-center mb-6">
+            <Image
+              src="/assets/images/simulados-ilustration/exame.svg"
+              alt="Ícone de exame"
+              width={50}
+              height={50}
+            />
           </div>
-          <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-orange-400 text-center p-4 transition-all duration-500 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
-            <p className="text-[#f5e8fc] text-2xl mb-8">
-              <span className="text-orange-100">
-                Ferramenta de mensuração das habilidades socioemocionais.
-              </span>
-            </p>
-            <Link
-              href="/Insights"
-              className="inline-block bg-orange-600 z-10 text-white px-6 py-2 rounded-lg text-lg hover:bg-orange-700 transition"
-            >
-              Saiba Mais
-            </Link>
-          </div>
+          <h2 className="text-3xl text-center font-bold mb-3 text-[#1C4B63]">
+            MindsUP <br /> <span className="text-[#1795AB]"> Simulados </span>
+          </h2>
+          <p className="text-gray-500 text-center text-md mb-6">
+            Ferramenta de mensuração das habilidades socioemocionais.
+          </p>
+          <Link
+            href="/Simulados"
+            className="px-[5rem] py-3 bg-[#3B82F6] text-white px-6 py-2 rounded-full text-lg hover:bg-[#2563EB] transition"
+          >
+            Saiba mais
+          </Link>
         </div>
       </div>
     </section>
