@@ -1,278 +1,109 @@
-'use client';
-import { useEffect, useState, useRef } from "react";
-import Navbar from "../components/Navbar";
-import Background from "../components/Background";
-import Footer from "../components/Footer";
+"use client"
+import Navbar from "../componentes/Navbar";
+import Background from "../componentes/Background";
+import Footer from "../componentes/Footer";
 import Image from "next/image";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
+import HorizontalScroll from "../componentes/HorizontalScroll";
+import Section3 from "../componentes/Section3";
 
-const RandomImages = () => {
-  const [visibleImages, setVisibleImages] = useState(Array(8).fill(false));
-  const containerRef = useRef(null);
-  const timeoutIdsRef = useRef([]);
-
-  const showRandomImage = (imageIndexes) => {
-    if (imageIndexes.length === 0) return;
-
-    const randomIndex = Math.floor(Math.random() * imageIndexes.length);
-    const imageToShow = imageIndexes.splice(randomIndex, 1)[0]; //Não entendi essa linha
-
-    setVisibleImages((prev) => {
-      const newVisibleImages = [...prev]; //Não entendi essa linha
-      newVisibleImages[imageToShow] = true;
-      return newVisibleImages;
-    });
-
-    timeoutIdsRef.current.push( //Não entendi essa linha
-      setTimeout(() => showRandomImage(imageIndexes), Math.random() * 500 + 300)
-    );
-  };
-
-  const resetImages = () => {
-    setVisibleImages(Array(8).fill(false));
-    timeoutIdsRef.current.forEach(clearTimeout);
-    timeoutIdsRef.current = [];
-
-    const imageIndexes = [0, 1, 2, 3, 4, 5, 6, 7];
-    showRandomImage(imageIndexes);
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          resetImages();
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      timeoutIdsRef.current.forEach(clearTimeout);
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
-  }, []);
+const Home = () => {
+  const [text] = useTypewriter({
+    words: ["decisões", "intuições", "soluções"],
+    loop: {},
+  });
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-[500px] h-[500px] mt-10 flex items-center justify-center"
-    >
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-LAMP-DEC.svg"
-        alt="Ilustração de lâmpada acesa"
-        width={400}
-        height={400}
-        className="absolute"
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-abc.svg"
-        alt="abc"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[1] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ top: "32%", left: "0%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-brain.svg"
-        alt="brain"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[2] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ top: "11%", left: "5%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-roman-number.svg"
-        alt="roman number"
-        width={45}
-        height={45}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[3] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ top: "2%", right: "67%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-power.svg"
-        alt="power"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[4] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ top: "-5%", right: "43%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-globo.svg"
-        alt="globo"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[5] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ bottom: "88%", right: "19%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-puzzle.svg"
-        alt="puzzle"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[6] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ bottom: "76%", left: "85%" }}
-      />
-      <Image
-        src="/assets/images/insights-ilustration/ideia-ilustration/ON-livro.svg"
-        alt="book"
-        width={60}
-        height={60}
-        className={`absolute transition-opacity duration-300 animate-float ${
-          visibleImages[7] ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ bottom: "55%", left: "88%" }}
-      />
-    </div>
-  );
-};
+    <main className="bg-gradient-to-r from-[#FFFCFA] to-white text-[#2D2D2D] dark:bg-black dark:text-gray-100 font-inter">
+      <Background>
+        <Navbar />
 
-const LottieAnimation = () => {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs";
+        <div className="absolute w-full h-full bg-gradient-to-br from-blue-50/30 to-purple-50/30 dark:from-gray-800/30 dark:to-gray-900/30 opacity-50"></div>
 
-    script.type = "module";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  return (
-    <dotlottie-player
-      src="https://lottie.host/8f35dbd3-8fa9-41d9-9aa4-d9d804b249f6/emt0XVnJwb.json"
-      background="transparent"
-      speed="1"
-      style={{ width: "1500px", height: "1500px" }}
-      loop
-      autoplay
-    ></dotlottie-player>
-  );
-};
-
-const Insights = () => {
-  return (
-    <Background>
-      <Navbar />
-
-      {/* Seção 1 */}
-      <section className="pt-40 bg-orange-8 pl-28 flex flex-col-reverse lg:flex-row items-center justify-between p-8">
-        <div className="w-full pl-10 lg:w-1/2 p-4">
-          <h1 className="text-orange-950 font-semibold 
-              text-6xl 2xl:text-7xl relative mb-10">
-            MUP{" "}
-            {/* --------------- Span com a linha sublinhada Laranja ------------------ */}
-            <span className="relative inline-block">
-              <div className="w-[16.5rem] h-4 bg-gradient-to-r from bg-orange-5 absolute top-10 left-[5px] z-0 2xl:top-[52px] 2xl:w-[17rem]"></div>
-              <span className="relative z-10">Insights</span>
-            </span>
-          </h1>
-
-          <p className="text-lg text-orange-900 pt-8 pb-[5rem]">
-            A equipe de suporte de dados da Minds Up analisa os dados escolares
-            dos simulados e da avaliação socioemocional e fornecem insights para
-            toda a gestão escolar sobre competências que devem ser trabalhadas
-            nos estudantes.{" "}
-            <strong>
-              Nossos insights abordam temas tanto cognitivos quanto
-              socioemocionais
-            </strong>
-            , possibilitando um desenvolvimento integral dos estudantes.
-          </p>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center p-4">
-          <div className="w-96 h-96 rounded-full bg-gradient-to-br from-red-50 to-purple-50 filter absolute z-0 lg:ml-5 blur-3xl mt-4 2xl:mt-[-3rem] 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-          <div className="w-96 h-96 rounded-full bg-gradient-to-br from-orange-50 to-blue-50 filter absolute z-0 ml-[-10rem] blur-3xl mt-44 2xl:mt-26 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-          <div className="w-96 h-96 rounded-full bg-gradient-to-br from-yellow-50 to-orange-50 filter absolute z-0 lg:ml-96 blur-3xl mt-28 2xl:mt-44 2xl:w-[28rem] 2xl:h-[28rem]"></div>
-
-          <RandomImages />
-        </div>
-      </section>
-
-      {/* Seção 2 */}
-      <section className="flex flex-col lg:flex-row items-center justify-between p-8 bg-orange-7 relative">
-        <div className="w-full lg:w-1/2 flex justify-center p-4">
+        <div className="flex flex-col items-center justify-center min-h-screen px-6 lg:px-16 xl:px-24 relative z-10 max-w-7xl mx-auto text-center pt-[12rem]">
+          {/* Asterisco Superior Esquerdo */}
           <Image
-            src="/assets/images/insights-ilustration/tela-insights.svg"
-            alt="Tela de insights"
-            width={450}
-            height={450}
+            src="/assets/images/asterisco-maior.svg"
+            width={100}
+            height={100}
+            alt="Asterisco Superior"
+            className="absolute left-[10rem] top-[15rem]"
           />
-        </div>
 
-        <div className="lg:w-1/2 p-6 z-10 text-center lg:text-left lg:pl-12">
-          <p className="text-lg text-orange-900">
-            <span className="text-9xl font-bold z-40 relative text-justify -mr-3">
-              O
-            </span>
-            s Insights fornecidos pela <strong>Minds Up</strong> permitem uma
-            visão abrangente e detalhada das necessidades educacionais dos
-            estudantes. A partir da análise de dados, nossa equipe identifica
-            padrões e tendências que orientam estratégias pedagógicas mais
-            eficazes, focando tanto no desenvolvimento cognitivo quanto no
-            socioemocional.
-          </p>
-        </div>
-      </section>
+          {/* Texto Principal */}
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 dark:text-gray-100">
+              Use dados{" "}
+              <span className=" inline-block">
+                <span className=" inline-block w-full">
+                  <span className="relative z-10">otimizados</span>
+                  <Image
+                    src="/assets/images/Elipse.svg"
+                    alt="Círculo"
+                    width={10} // Ajuste esse valor conforme necessário
+                    height={30} // Mantenha uma proporção adequada
+                    className="absolute top-[17.3rem] left-[49%] w-[31%]" // Adicionado width e transformação
+                  />
+                </span>
+              </span>{" "}
+              para guiar suas <br />
+              <span className="text-orange-400 dark:text-orange-300 relative inline-block">
+                {/* <span className=" bottom-0 left-0 w-full h-2 bg-orange-200 z-10 dark:bg-orange-400/50 rounded-full"></span> */}
 
-      {/* Seção 3 */}
-      <section className="flex bg-orange-8 flex-col-reverse lg:flex-row h-[80vh] items-center justify-between p-8">
-        <div className="w-full lg:w-1/2 p-4">
-          <p className="text-lg text-orange-900 text-justify">
-            Nossos insights abordam temas tanto{" "}
-            <span className="relative inline-block">
-              <span className="w-full h-2 bg-gradient-to-r from bg-orange-300 absolute top-4 z-0 block"></span>
-              <span className="relative z-10 text-orange-900">
-                <strong>cognitivos</strong>
+                {text}
+
+                <Cursor />
               </span>
-            </span>{" "}
-            quanto{" "}
-            <span className="relative inline-block">
-              <span className="w-full h-2 rounded-lg bg-gradient-to-r from bg-orange-300 absolute -left-1 top-4 z-0 block"></span>
-              <span className="relative z-10 text-orange-900">
-                <strong>socioemocionais</strong>
-              </span>
-            </span>{" "}
-            possibilitando um desenvolvimento integral dos estudantes. Com base
-            nos dados coletados, as instituições podem adaptar suas estratégias
-            pedagógicas para atender às necessidades específicas dos alunos.
-          </p>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center p-4">
-          <Image
-            src="/assets/images/insights-ilustration/arvore-cerebro.svg"
-            alt="Ilustração de árvore cérebro"
-            width={450}
-            height={450}
-            className="ml-[20px] pt-[50px]"
-          />
-        </div>
-      </section>
+              <Image
+                src="/assets/images/asterisco-menor.svg"
+                width={50}
+                height={50}
+                alt="Asterisco"
+                className="inline-block ml-2"
+              />
+            </h1>
 
-      <Footer />
-    </Background>
+            <p className="mt-[5rem] text-lg md:text-xl text-[#4A4A4A] dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              Por meio de análise de dados cognitivos e socioemocionais, a Minds
+              Up oferece uma visão integral, personalizada e acionável para seus
+              estudantes, além de possibilitar novas formas de engajamento de
+              estudantes, pais e professores.
+            </p>
+
+            <div className="mt-10">
+              <button className="bg-orange-300 text-gray-900 dark:bg-orange-400 dark:text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-orange-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 dark:focus:ring-gray-600">
+                Saiba mais
+              </button>
+              <div className="arrows-animation mt-[5rem] flex flex-col items-center z-10">
+               
+                <svg
+                  className="animate-bounce my-2"
+                  style={{ animationDelay: "0.5s", animationDuration: "1.5s" }}
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M17 6L12 11L7 6M17 13L12 18L7 13"
+                    stroke="#383837"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <HorizontalScroll />
+        <Footer />
+      </Background>
+    </main>
   );
 };
 
-export default Insights;
+export default Home;

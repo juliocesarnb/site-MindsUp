@@ -15,6 +15,7 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+          'grid-pattern': "url('/assets/images/grid.svg')",
       },
       colors: {
         'orange-1': '#FC8F22',

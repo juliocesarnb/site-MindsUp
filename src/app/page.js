@@ -1,11 +1,11 @@
 "use client";
-import Navbar from "./components/Navbar";
-import Background from "./components/Background";
-import Footer from "./components/Footer";
+import Navbar from "./componentes/Navbar";
+import Background from "./componentes/Background";
+import Footer from "./componentes/Footer";
 import Image from "next/image";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import HorizontalScroll from "./components/HorizontalScroll";
-import Section3 from "./components/Section3";
+import HorizontalScroll from "./componentes/HorizontalScroll";
+import Section3 from "./componentes/Section3";
 
 const Home = () => {
   const [text] = useTypewriter({
