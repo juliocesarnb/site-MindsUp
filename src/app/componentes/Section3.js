@@ -9,7 +9,7 @@ const Section3 = () => {
       id="produtos"
       className="min-h-screen pt-[5rem] mt-12 mb-12 2xl:mb-1"
     >
-      <h2 className="text-black-4 dark:text-white font-semibold text-6xl 2xl:text-7xl flex justify-center items-center text-5xl text-center mb-10 2xl:text-6xl">
+      <h2 className="text-black-4 dark:text-white font-semibold text-5xl text-center mb-10 2xl:text-6xl">
         Inteligência de dados voltada <br /> para a melhoria da escola
       </h2>
 
@@ -22,77 +22,83 @@ const Section3 = () => {
 
       {/*-------------- Container dos cards ------------ */}
       <div className="flex flex-wrap justify-center lg:flex-nowrap gap-8 mx-5">
-        {/*-------------- Card Roxo ------------ */}
-        <div className="w-[450px] h-[510px] bg-purple-100 flex flex-col items-center justify-center rounded-[15px] p-9 pb-[4rem]">
-          <div className="w-[104px] h-[104px] bg-[#D06BFF] rounded-full flex items-center justify-center mb-6">
+        {/*-------------- Card Simulados (Azul) ------------ */}
+        <div className="w-full max-w-[400px] bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
+          <div className="w-full h-[220px] relative">
             <Image
-            className="mr-[0.2rem]"
-              src="/assets/images/socioemocional-ilustrations/quebra-cabeca.svg"
-              alt="Ícone de quebra-cabeça"
-              width={55}
-              height={55}
+              src="/assets/images/simulados-ilustration/foto-simulado.svg"
+              alt="Estudante fazendo simulado"
+              layout="fill"
+              objectFit="cover"
             />
           </div>
-          <h2 className="text-3xl text-center font-bold mb-3 text-[#43157A]">
-            MindsUP <br /> <span className="text-[#9717AB]"> Socioemocional </span>
-          </h2>
-          <p className="text-gray-500 text-center text-md mb-6">
-            Ferramenta de mensuração das habilidades socioemocionais.
-          </p>
-          <Link
-            href="/Socioemocional"
-            className="bg-[#A855F7] text-white px-[5rem] py-3 rounded-full text-lg hover:bg-[#9335D8] transition"
-          >
-            Saiba mais
-          </Link>
+          <div className="p-6 flex flex-col flex-grow">
+            <h2 className="text-2xl text-gray-800 dark:text-white font-bold mb-3">
+              MindsUp Integração
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-grow">
+              Integre os dados de sua escola e personalize seus dashboards. Por
+              meio das nossas soluções de IA promova uma gestão ativa da sua
+              escola.
+            </p>
+            <Link href="/Simulados">
+              <span className="block w-full bg-blue-200 text-blue-800 text-center py-3 rounded-lg font-semibold hover:bg-blue-300 transition">
+                Saiba mais
+              </span>
+            </Link>
+          </div>
         </div>
 
-        {/*-------------- Card Laranja ------------ */}
-        <div className="w-[450px] h-[510px] bg-orange-100 flex flex-col items-center justify-center rounded-[15px] p-6 pb-[4rem]">
-          <div className="w-[104px] h-[104px] bg-[#FFC66B] rounded-full flex items-center justify-center mb-6">
+        {/*-------------- Card Insights (Amarelo) ------------ */}
+        <div className="w-full max-w-[400px] bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
+          <div className="w-full h-[220px] relative">
             <Image
-              src="/assets/images/insights-ilustration/lightning.svg"
-              alt="Ícone de raio"
-              width={60}
-              height={60}
+              src="/assets/images/insights-ilustration/foto-insights.svg"
+              alt="Alunos olhando para uma tela"
+              layout="fill"
+              objectFit="cover"
             />
           </div>
-          <h2 className="text-3xl text-center font-bold mb-3 text-[#63351C]">
-            MindsUP <br /> <span className="text-[#AB6117]"> Insights </span>
-          </h2>
-          <p className="text-gray-500 text-center text-md mb-6">
-            Ferramenta de mensuração das habilidades socioemocionais.
-          </p>
-          <Link
-            href="/Insights"
-            className="px-[5rem] py-3 bg-[#F59E0B] text-white px-6 py-2 rounded-full text-lg hover:bg-[#D97706] transition"
-          >
-            Saiba mais
-          </Link>
+          <div className="p-6 flex flex-col flex-grow">
+            <h2 className="text-2xl text-gray-800 dark:text-white font-bold mb-3">
+              MindsUp Insights
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-grow">
+              Provas da Minds Up simulam o ENEM, com questões variadas, feedback
+              preciso e preparação eficiente para os alunos.
+            </p>
+            <Link href="/Insights">
+              <span className="block w-full bg-yellow-200 text-yellow-800 text-center py-3 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                Saiba mais
+              </span>
+            </Link>
+          </div>
         </div>
 
-        {/*-------------- Card Azul ------------ */}
-        <div className="w-[450px] h-[510px] bg-blue-100 flex flex-col items-center justify-center rounded-[15px] p-6 pb-[4rem]">
-          <div className="w-[104px] h-[104px] bg-[#6BBDFF] rounded-full flex items-center justify-center mb-6">
+        {/*-------------- Card Socioemocional (Roxo) ------------ */}
+        <div className="w-full max-w-[400px] bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col">
+          <div className="w-full h-[220px] relative">
             <Image
-              src="/assets/images/simulados-ilustration/exame.svg"
-              alt="Ícone de exame"
-              width={50}
-              height={50}
+              src="/assets/images/socioemocional-ilustration/foto-socioemocional.svg"
+              alt="Alunos em uma sala de aula"
+              layout="fill"
+              objectFit="cover"
             />
           </div>
-          <h2 className="text-3xl text-center font-bold mb-3 text-[#1C4B63]">
-            MindsUP <br /> <span className="text-[#1795AB]"> Simulados </span>
-          </h2>
-          <p className="text-gray-500 text-center text-md mb-6">
-            Ferramenta de mensuração das habilidades socioemocionais.
-          </p>
-          <Link
-            href="/Simulados"
-            className="px-[5rem] py-3 bg-[#3B82F6] text-white px-6 py-2 rounded-full text-lg hover:bg-[#2563EB] transition"
-          >
-            Saiba mais
-          </Link>
+          <div className="p-6 flex flex-col flex-grow">
+            <h2 className="text-2xl text-gray-800 dark:text-white font-bold mb-3">
+              MindsUp Socioemocional
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-grow">
+              Provas da Minds Up simulam o ENEM, com questões variadas, feedback
+              preciso e preparação eficiente para os alunos.
+            </p>
+            <Link href="/Socioemocional">
+              <span className="block w-full bg-purple-200 text-purple-800 text-center py-3 rounded-lg font-semibold hover:bg-purple-300 transition">
+                Saiba mais
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

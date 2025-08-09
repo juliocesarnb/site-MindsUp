@@ -1,10 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+
+// Duração da transição em milissegundos (deve ser a mesma do CSS)
+const TRANSITION_DURATION = 500;
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const autoplayTimerRef = useRef(null);
 
   const sections = [
     {
@@ -23,7 +27,7 @@ const Slider = () => {
           direcionado.
         </p>
       ),
-      image: "/assets/images/garoto-estudando-slider.svg", // Primeira imagem
+      image: "/assets/images/garoto-estudando-slider.svg",
     },
     {
       color: "bg-[#FFFCFA] dark:bg-[#1A1A1A]",
@@ -40,7 +44,7 @@ const Slider = () => {
           direcionado e eficiente para todos os alunos.
         </p>
       ),
-      image: "/assets/images/notebook-dados-slider.svg", // Segunda imagem
+      image: "/assets/images/notebook-dados-slider.svg",
     },
     {
       color: "bg-[#FFFCFA] dark:bg-[#1A1A1A]",
@@ -55,7 +59,7 @@ const Slider = () => {
           do desempenho e do desenvolvimento dos seus estudantes.
         </p>
       ),
-      image: "/assets/images/professor-dados-slider.svg", // Terceira imagem
+      image: "/assets/images/professor-dados-slider.svg",
     },
     {
       color: "bg-[#FFFCFA] dark:bg-[#1A1A1A]",
@@ -70,51 +74,49 @@ const Slider = () => {
           forte e efetiva com o processo educacional.
         </p>
       ),
-      image: "/assets/images/professor-devolutiva-slider.svg", // Quarta imagem
+      image: "/assets/images/professor-devolutiva-slider.svg",
     },
   ];
 
-  const nextSlide = () => {
+  const handleSlideChange = useCallback((newIndex) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev === sections.length - 1 ? 0 : prev + 1));
-  };
+    setCurrentSlide(newIndex);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, TRANSITION_DURATION);
+  }, [isTransitioning]);
 
-  const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev === 0 ? sections.length - 1 : prev - 1));
-  };
+  const nextSlide = useCallback(() => {
+    const newIndex = (currentSlide + 1) % sections.length;
+    handleSlideChange(newIndex);
+  }, [currentSlide, handleSlideChange, sections.length]);
 
-  const goToSlide = (index) => {
-    if (isTransitioning || index === currentSlide) return;
-    setIsTransitioning(true);
-    setCurrentSlide(index);
-  };
+  const prevSlide = useCallback(() => {
+    const newIndex = (currentSlide - 1 + sections.length) % sections.length;
+    handleSlideChange(newIndex);
+  }, [currentSlide, handleSlideChange, sections.length]);
+  
+  const goToSlide = useCallback((index) => {
+    if (index === currentSlide) return;
+    handleSlideChange(index);
+  },[currentSlide, handleSlideChange]);
 
   useEffect(() => {
-    const handleTransitionEnd = () => {
-      setIsTransitioning(false);
-    };
-
-    const slider = document.getElementById("secao2");
-    if (slider) {
-      slider.addEventListener("transitionend", handleTransitionEnd);
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current);
     }
-
-    const interval = setInterval(() => {
-      if (!isTransitioning) {
-        nextSlide();
-      }
-    }, 6000);
+    autoplayTimerRef.current = setTimeout(() => {
+      nextSlide();
+    }, 15000);
 
     return () => {
-      if (slider) {
-        slider.removeEventListener("transitionend", handleTransitionEnd);
+      if (autoplayTimerRef.current) {
+        clearTimeout(autoplayTimerRef.current);
       }
-      clearInterval(interval);
     };
-  }, [currentSlide, isTransitioning]);
+  }, [currentSlide, nextSlide]);
 
   return (
     <div className="relative h-screen max-w-full overflow-x-hidden">
@@ -193,6 +195,7 @@ const Slider = () => {
               className="absolute right-[101rem] top-[5rem] font-inter text-[25rem] font-bold opacity-10 select-none"
               style={{ color: section.textColor }}
             >
+              {/* ALTERAÇÃO AQUI: Removido o .padStart(2, '0') */}
               {index + 1}
             </span>
 
@@ -212,7 +215,7 @@ const Slider = () => {
               <div className="lg:w-1/2 rounded-3xl overflow-hidden ">
                 <div className="w-full h-full rounded-3xl">
                   <Image
-                    src={section.image} // Usando a imagem específica de cada seção
+                    src={section.image}
                     width={680}
                     height={680}
                     className="object-cover w-full h-full transition-opacity"

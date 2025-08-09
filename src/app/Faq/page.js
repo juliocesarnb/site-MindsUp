@@ -1,8 +1,9 @@
 'use client';
+
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Navbar from "../components/Navbar";
+import Navbar from "../componentes/Navbar";
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -11,7 +12,7 @@ const Faq = () => {
     {
       question: "O que é o nosso serviço?",
       answer:
-        "Nosso serviço utiliza simulados e análises socioemocionais para oferecer uma visão integral e completa dos estudantes, possibilitando intervenções pedagógicas personalizadas.",
+        "Nosso serviço utiliza simulados e análises socioemococionais para oferecer uma visão integral e completa dos estudantes, possibilitando intervenções pedagógicas personalizadas.",
     },
     {
       question: "Como posso começar?",
@@ -55,48 +56,58 @@ const Faq = () => {
   };
 
   return (
-      
-      <div className="bg-purple-100 min-h-screen">
-        <Navbar /> {/* Menu superior */}
-      <div className="max-w-3xl mx-auto p-6 pt-[12rem]">
-        <h1 className="text-4xl font-bold text-purple-700 text-center mb-12">
-          Perguntas frequentes
+    <div className="bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-950 min-h-screen">
+      <Navbar />
+      <div className="max-w-4xl mx-auto px-6 pt-[10rem] pb-20">
+        <h1 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-200 mb-12">
+          FAQ&apos;s
         </h1>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {faqData.map((item, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-purple-50 rounded-lg overflow-hidden"
+              layout
+              className="rounded-xl border border-gray-300 dark:border-gray-700 shadow-md bg-white/80 dark:bg-gray-800/80 backdrop-blur-md transition-colors duration-300"
             >
               <button
                 onClick={() => toggleAccordion(index)}
-                className="w-full p-4 text-left flex justify-between items-center"
+                className="w-full p-6 text-left flex justify-between items-center"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-content-${index}`}
               >
-                <h2 className="text-lg font-medium text-purple-700">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                   {item.question}
                 </h2>
                 <motion.div
-                  animate={{ rotate: openIndex === index ? 45 : 0 }}
-                  transition={{ duration: 0.2 }}
+                  initial={false}
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <Plus className="w-6 h-6 text-purple-700" />
+                  {openIndex === index ? (
+                    <Minus className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                  ) : (
+                    <Plus className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                  )}
                 </motion.div>
               </button>
 
-              <AnimatePresence>
+              <AnimatePresence initial={false}>
                 {openIndex === index && (
                   <motion.div
+                    id={`faq-content-${index}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <div className="p-4 pt-0 text-gray-600">{item.answer}</div>
+                    <div className="px-6 pb-6 pt-0 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                      {item.answer}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,109 +1,204 @@
-"use client"
+"use client";
+
 import Navbar from "../componentes/Navbar";
 import Background from "../componentes/Background";
 import Footer from "../componentes/Footer";
 import Image from "next/image";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
-import HorizontalScroll from "../componentes/HorizontalScroll";
-import Section3 from "../componentes/Section3";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const Home = () => {
-  const [text] = useTypewriter({
-    words: ["decisões", "intuições", "soluções"],
-    loop: {},
-  });
+gsap.registerPlugin(ScrollTrigger);
+
+const scrollContent = [
+  {
+    id: 1,
+    lightImage: "/assets/images/simulados-ilustration/online-simulated.svg",
+    darkImage: "/assets/images/simulados-ilustration/online-simulated.svg",
+    title: "Questões Abrangentes",
+    description:
+      "Nossos simulados cobrem todas as áreas do conhecimento do ENEM, com questões cuidadosamente selecionadas para refletir o estilo e a dificuldade da prova real.",
+  },
+  {
+    id: 2,
+    lightImage: "/assets/images/simulados-ilustration/teacher-explication-data.svg",
+    darkImage: "/assets/images/simulados-ilustration/teacher-explication-data.svg",
+    title: "Feedback Detalhado",
+    description:
+      "Receba uma análise completa do seu desempenho, com relatórios que apontam seus pontos fortes e áreas que precisam de mais atenção para um estudo direcionado.",
+  },
+  {
+    id: 3,
+    lightImage: "/assets/images/simulados-ilustration/test.svg",
+    darkImage: "/assets/images/simulados-ilustration/test.svg",
+    title: "Ambiente Realista",
+    description:
+      "Simule as condições reais do dia da prova, com tempo cronometrado e uma interface limpa, para você se preparar não apenas no conteúdo, mas também na gestão do tempo.",
+  },
+];
+
+const Simulados = () => {
+  const imageContainersRef = useRef([]);
+  const rightContentRef = useRef(null);
+  const animationContainerRef = useRef(null);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      const imageContainers = imageContainersRef.current;
+      const rightContent = rightContentRef.current;
+      const container = animationContainerRef.current;
+      const totalSections = scrollContent.length;
+
+      if (!container || !rightContent || imageContainers.length === 0) return;
+
+      gsap.set(imageContainers[0], { autoAlpha: 1 });
+      gsap.set(imageContainers.slice(1), { autoAlpha: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: `+=${(totalSections - 1) * 100}%`,
+          pin: true,
+          scrub: 1,
+          pinSpacing: true,
+        },
+      });
+
+      scrollContent.slice(0, -1).forEach((_, i) => {
+        tl.to(imageContainers[i], { autoAlpha: 0, ease: "power1.inOut" })
+          .to(imageContainers[i + 1], { autoAlpha: 1, ease: "power1.inOut" }, "<")
+          .to(rightContent, { yPercent: -100 * (i + 1), ease: "power1.inOut" }, "<");
+      });
+    }, animationContainerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <main className="bg-gradient-to-r from-[#FFFCFA] to-white text-[#2D2D2D] dark:bg-black dark:text-gray-100 font-inter">
+    <main className="relative bg-gradient-to-r from-[#FFFCFA] to-white text-[#2D2D2D] dark:bg-black dark:text-gray-100 font-inter overflow-x-hidden">
       <Background>
         <Navbar />
 
-        <div className="absolute w-full h-full bg-gradient-to-br from-blue-50/30 to-purple-50/30 dark:from-gray-800/30 dark:to-gray-900/30 opacity-50"></div>
+        {/* HERO */}
+        <div className="relative flex flex-col items-center justify-center min-h-screen px-4 text-center sm:px-6 lg:px-16 xl:px-24 pt-[6rem] sm:pt-[8rem]">
+          <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+            <Image
+              src="/assets/images/grid.svg"
+              alt="Grid claro"
+              fill
+              className="object-cover opacity-25 dark:hidden"
+            />
+            <Image
+              src="/assets/images/grid-dark.svg"
+              alt="Grid escuro"
+              fill
+              className="hidden object-cover opacity-100 dark:block"
+            />
+          </div>
 
-        <div className="flex flex-col items-center justify-center min-h-screen px-6 lg:px-16 xl:px-24 relative z-10 max-w-7xl mx-auto text-center pt-[12rem]">
-          {/* Asterisco Superior Esquerdo */}
-          <Image
-            src="/assets/images/asterisco-maior.svg"
-            width={100}
-            height={100}
-            alt="Asterisco Superior"
-            className="absolute left-[10rem] top-[15rem]"
-          />
-
-          {/* Texto Principal */}
-          <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 dark:text-gray-100">
-              Use dados{" "}
-              <span className=" inline-block">
-                <span className=" inline-block w-full">
-                  <span className="relative z-10">otimizados</span>
-                  <Image
-                    src="/assets/images/Elipse.svg"
-                    alt="Círculo"
-                    width={10} // Ajuste esse valor conforme necessário
-                    height={30} // Mantenha uma proporção adequada
-                    className="absolute top-[17.3rem] left-[49%] w-[31%]" // Adicionado width e transformação
-                  />
-                </span>
-              </span>{" "}
-              para guiar suas <br />
-              <span className="text-orange-400 dark:text-orange-300 relative inline-block">
-                {/* <span className=" bottom-0 left-0 w-full h-2 bg-orange-200 z-10 dark:bg-orange-400/50 rounded-full"></span> */}
-
-                {text}
-
-                <Cursor />
-              </span>
+          <div className="relative z-10 w-full max-w-4xl px-4 mx-auto sm:px-6 lg:px-5 pb-32">
+            <div>
               <Image
-                src="/assets/images/asterisco-menor.svg"
-                width={50}
-                height={50}
-                alt="Asterisco"
-                className="inline-block ml-2"
+                src="/assets/images/simulados-ilustration/text-home-integracao.svg"
+                alt="Minds Up Simulados"
+                width={1000}
+                height={400}
+                className="w-full h-auto dark:hidden"
+                priority
               />
-            </h1>
-
-            <p className="mt-[5rem] text-lg md:text-xl text-[#4A4A4A] dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              Por meio de análise de dados cognitivos e socioemocionais, a Minds
-              Up oferece uma visão integral, personalizada e acionável para seus
-              estudantes, além de possibilitar novas formas de engajamento de
-              estudantes, pais e professores.
+              <Image
+                src="/assets/images/simulados-ilustration/text-home-integracao-dark.svg"
+                alt="Minds Up Simulados"
+                width={1000}
+                height={400}
+                className="hidden w-full h-auto dark:block"
+                priority
+              />
+            </div>
+            <p className="mt-12 text-base sm:text-lg md:text-xl text-[#666666] dark:text-gray-300 leading-relaxed">
+              Provas da Minds Up simulam o ENEM, com questões variadas,
+              <br className="hidden sm:block" />
+              feedback preciso e preparação eficiente para os alunos.
             </p>
+          </div>
 
-            <div className="mt-10">
-              <button className="bg-orange-300 text-gray-900 dark:bg-orange-400 dark:text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-orange-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 dark:focus:ring-gray-600">
-                Saiba mais
-              </button>
-              <div className="arrows-animation mt-[5rem] flex flex-col items-center z-10">
-               
-                <svg
-                  className="animate-bounce my-2"
-                  style={{ animationDelay: "0.5s", animationDuration: "1.5s" }}
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+          <div className="absolute z-10 arrows-animation bottom-20 sm:bottom-16 dark:stroke-white">
+            <svg
+              className="animate-bounce my-2"
+              style={{ animationDelay: "0.5s", animationDuration: "1.5s" }}
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M17 6L12 11L7 6M17 13L12 18L7 13"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* SEÇÃO COM SCROLL ANIMADO */}
+        <div
+          ref={animationContainerRef}
+          className="w-full h-screen overflow-hidden flex flex-col md:flex-row"
+        >
+          {/* IMAGENS */}
+          <div className="w-full md:w-1/2 h-1/2 md:h-screen relative flex justify-center items-center p-4">
+            <div className="relative w-full h-full max-w-lg max-h-lg aspect-square transform -translate-y-6 md:-translate-y-12 transition-transform duration-300">
+              {scrollContent.map((item, index) => (
+                <div
+                  key={item.id}
+                  ref={(el) => (imageContainersRef.current[index] = el)}
+                  className="absolute top-0 left-0 w-full h-full rounded-lg invisible"
                 >
-                  <path
-                    d="M17 6L12 11L7 6M17 13L12 18L7 13"
-                    stroke="#383837"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <img
+                    src={item.lightImage}
+                    alt={item.title}
+                    className="w-full h-full object-contain rounded-lg dark:hidden"
                   />
-                </svg>
-                
-              </div>
+                  <img
+                    src={item.darkImage}
+                    alt={item.title}
+                    className="hidden w-full h-full object-contain rounded-lg dark:block"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* TEXTOS */}
+          <div className="w-full md:w-1/2 h-1/2 md:h-screen overflow-hidden">
+            <div ref={rightContentRef} className="w-full h-full flex flex-col">
+              {scrollContent.map((item) => (
+                <div
+                  key={item.id}
+                  className="w-full h-full flex-shrink-0 flex flex-col justify-center items-center p-8 md:p-12 lg:p-16"
+                >
+                  {/* FORMATAÇÃO ALINHADA: Título e descrição alinhados à esquerda em telas maiores (md:text-left) */}
+                  <div className="max-w-xl w-full">
+                    <h3 className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-[#3F3F3F] dark:bg-[#F3F4F6] text-center md:text-left leading-normal py-2">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 text-center md:text-left">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <HorizontalScroll />
         <Footer />
       </Background>
     </main>
   );
 };
 
-export default Home;
+export default Simulados;

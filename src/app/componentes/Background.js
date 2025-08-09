@@ -1,6 +1,6 @@
 'use client'
 const Background = ({ children }) => (
-    <div className="dark:bg-[#111827] bg-[#FFFCFA] min-h-screen">
+    <div className="bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-950 min-h-screen">
       
       {children}
       

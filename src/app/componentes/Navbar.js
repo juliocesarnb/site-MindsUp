@@ -15,243 +15,220 @@ const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDarkMode(isDark);
-    };
-
-    checkDarkMode();
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
+    }
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
-    const root = document.documentElement;
-    if (root.classList.contains("dark")) {
-      root.classList.remove("dark");
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
     } else {
-      root.classList.add("dark");
+      document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
-      setIsDarkMode(true);
     }
+    setIsDarkMode(!isDarkMode);
   };
+
+  const navLinkClasses =
+    "font-medium text-gray-700 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-300 transition-colors";
 
   const aboutItems = [
     {
       title: "Sobre nós",
-      icon: "/assets/images/navbar-icones/icone-brain-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-brain-navbar-hover.svg",
+      description: "Conheça nossa história e missão.",
+      link: "/SobreNos",
     },
     {
       title: "FAQ",
-      icon: "/assets/images/navbar-icones/icone-question-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-hover-question-navbar.svg",
-      link: "/faq",
+      description: "Perguntas frequentes e respostas.",
+      link: "/Faq",
     },
   ];
 
   const solutions = [
     {
       title: "MindsUP Socioemocional",
-      description: "Ferramenta de mensuração das habilidades socioemocionais.",
-      icon: "/assets/images/navbar-icones/icone-puzzle-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-puzzle-navbar-hover.svg",
+      description: "Mensuração de habilidades socioemocionais.",
       link: "/Socioemocional",
     },
     {
-      title: "MindsUP Simulados",
-      description: "Ferramenta de mensuração das habilidades socioemocionais.",
-      icon: "/assets/images/navbar-icones/icone-exam-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-exam-navbar-hover.svg",
+      title: "MindsUP Integração",
+      description: "Simulados e preparação para o ENEM.",
       link: "/Simulados",
     },
     {
       title: "MindsUP Insights",
-      description: "Ferramenta de mensuração das habilidades socioemocionais.",
-      icon: "/assets/images/navbar-icones/icone-lightning-navbar.svg",
-      hoverIcon: "/assets/images/navbar-icones/icone-lightning-navbar-hover.svg",
+      description: "Inteligência de dados para sua escola.",
       link: "/Insights",
     },
   ];
 
   return (
     <nav
-      className={`fixed top-0 w-full h-[6rem] z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FFFCFA] shadow-lg py-2 dark:bg-gray-900"
-          : "bg-[#FFFCFA] py-4 dark:bg-gray-900"
+          ? "bg-[#FFFCFA] shadow-md dark:bg-[#121928] dark:border-b dark:border-slate-800"
+          : ""
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
-        <div className="flex-shrink-0">
-          <Link href="/">
-            <Image
-              src="/assets/Logo-MUp.svg"
-              alt="Logo da empresa"
-              width={220}
-              height={220}
-              className="dark:invert"
-            />
-          </Link>
-        </div>
+      <div className="container mx-auto isolate flex items-center justify-between px-4 lg:px-8 h-[6rem]">
+        <Link href="/">
+          {/* ===== INÍCIO DA ALTERAÇÃO ===== */}
+          {/* A imagem agora é escolhida com base no tema (isDarkMode) */}
+          {/* A classe 'dark:invert' foi removida pois não é mais necessária */}
+          <Image
+            src={isDarkMode ? "/assets/Logo-MUp-Rodape.svg" : "/assets/Logo-MUp.svg"}
+            alt="Logo MindsUp"
+            width={180}
+            height={50}
+            priority
+          />
+          {/* ===== FIM DA ALTERAÇÃO ===== */}
+        </Link>
 
-        <div className="hidden lg:flex items-center space-x-8">
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-4">
           <NavigationMenu>
-            <NavigationMenuList className="flex items-center gap-8">
+            <NavigationMenuList className="gap-2">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="font-inter text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400">
+                <NavigationMenuTrigger className={navLinkClasses}>
                   Quem somos
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="dark:backdrop-blur-[60%] backdrop-blur-[60%] p-4 rounded-xl shadow-lg w-[300px]">
-                  <div className="flex flex-col space-y-2">
-                    {aboutItems.map((item, index) => (
-                      <Link
-                        key={index}
-                        href={item.link || "#"}
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 group transition-all duration-200"
+                <NavigationMenuContent>
+                  <ul className="grid gap-1 p-2 w-[300px]">
+                    {aboutItems.map((item) => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.link}
                       >
-                        <div className="relative">
-                          <Image
-                            src={item.icon}
-                            alt={item.title}
-                            width={38}
-                            height={38}
-                            className="group-hover:opacity-0 transition-opacity"
-                          />
-                          <Image
-                            src={item.hoverIcon}
-                            alt={`${item.title} hover`}
-                            width={38}
-                            height={38}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-0 left-0"
-                          />
-                        </div>
-                        <span className="text-gray-800 font-inter dark:text-white font-medium">
-                          {item.title}
-                        </span>
-                      </Link>
+                        {item.description}
+                      </ListItem>
                     ))}
-                  </div>
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400">
+                <NavigationMenuTrigger className={navLinkClasses}>
                   Soluções
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="dark:backdrop-blur-[60%] backdrop-blur-[60%] p-4 rounded-xl w-[400px]">
-                  <div className="flex flex-col space-y-2">
-                    {solutions.map((solution, index) => (
-                      <Link
-                        key={index}
-                        href={solution.link || "#"}
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 group transition-all duration-200"
+                <NavigationMenuContent>
+                  <ul className="grid w-[350px] gap-1 p-2 lg:w-[400px]">
+                    {solutions.map((solution) => (
+                      <ListItem
+                        key={solution.title}
+                        title={solution.title}
+                        href={solution.link}
                       >
-                        <div className="relative">
-                          <Image
-                            src={solution.icon}
-                            alt={solution.title}
-                            width={50}
-                            height={50}
-                            className="group-hover:opacity-0 transition-opacity"
-                          />
-                          <Image
-                            src={solution.hoverIcon}
-                            alt={`${solution.title} hover`}
-                            width={50}
-                            height={50}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-0 left-0"
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="text-gray-800 font-inter dark:text-white font-medium">
-                            {solution.title}
-                          </span>
-                          <span className="text-sm text-gray-600 font-inter dark:text-gray-300">
-                            {solution.description}
-                          </span>
-                        </div>
-                      </Link>
+                        {solution.description}
+                      </ListItem>
                     ))}
-                  </div>
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link
-                  href="#produtos"
-                  className="text-gray-700 font-inter font-medium hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
-                >
-                  Produtos
+                <Link href="#produtos" legacyBehavior passHref>
+                  <a className={navLinkClasses}>Produtos</a>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link
-                  href="#contatos"
-                  className="text-gray-700 font-inter font-medium hover:text-purple-600 transition-colors dark:text-white dark:hover:text-purple-400"
-                >
-                  Contatos
+                <Link href="#contatos" legacyBehavior passHref>
+                  <a className={navLinkClasses}>Contatos</a>
                 </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <div className="relative w-[60px] h-[28px]">
-                  <label className="absolute w-full h-full bg-gray-300 dark:bg-gray-800 rounded-full cursor-pointer border-2 border-gray-700 dark:border-gray-300 flex items-center justify-between px-1">
-                    <input
-                      type="checkbox"
-                      className="hidden peer"
-                      checked={isDarkMode}
-                      onChange={toggleTheme}
-                    />
-                    {/* Ícone do Sol (modo claro) */}
-                    <span
-                      className={`w-5 h-5 transition-opacity duration-300 ${
-                        isDarkMode ? "opacity-0" : "opacity-100"
-                      }`}
-                    >
-                      <Image
-                        src="/assets/images/sol.svg"
-                        alt="Sol"
-                        width={20}
-                        height={20}
-                      />
-                    </span>
-                    {/* Ícone da Lua (modo escuro) */}
-                    <span
-                      className={`w-5 h-5 transition-opacity duration-300 ${
-                        isDarkMode ? "opacity-100" : "opacity-0"
-                      }`}
-                    >
-                      <Image
-                        src="/assets/images/lua.svg"
-                        alt="Lua"
-                        width={20}
-                        height={20}
-                      />
-                    </span>
-                  </label>
-                </div>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+
+          <div className="w-px h-6 bg-gray-200 dark:bg-gray-700" />
+          <Link href="/Login" legacyBehavior passHref>
+            <a className="bg-[#7747ff] text-white font-medium px-4 py-2 rounded-full hover:bg-[#6a3fdc] transition-colors text-sm">
+              Login
+            </a>
+          </Link>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Mudar tema"
+          >
+            <Image
+              src={
+                isDarkMode ? "/assets/images/sol.svg" : "/assets/images/lua.svg"
+              }
+              alt="Alternar tema"
+              width={24}
+              height={24}
+              priority
+            />
+          </button>
         </div>
 
-        <BtnMenu />
+        {/* Mobile Nav */}
+        <div className="lg:hidden flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Mudar tema"
+          >
+            <Image
+              src={
+                isDarkMode ? "/assets/images/sol.svg" : "/assets/images/lua.svg"
+              }
+              alt="Alternar tema"
+              width={24}
+              height={24}
+              priority
+            />
+          </button>
+          <BtnMenu />
+        </div>
       </div>
     </nav>
   );
 };
+
+const ListItem = React.forwardRef(
+  ({ className, title, href, children, ...props }, ref) => {
+    return (
+      <li>
+        <Link href={href || "#"} legacyBehavior passHref>
+          <a
+            ref={ref}
+            className="block w-full px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none text-gray-900 dark:text-white">
+              {title}
+            </div>
+            {children && (
+              <p className="text-sm leading-snug text-gray-600 dark:text-gray-400 mt-1">
+                {children}
+              </p>
+            )}
+          </a>
+        </Link>
+      </li>
+    );
+  }
+);
+ListItem.displayName = "ListItem";
 
 export default Navbar;

@@ -9,13 +9,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        stickler: "'Stickler-pro', sans-serif",
+        // CORRIGIDO: Usando um array para a lista de fontes, que é a prática padrão.
+        stickler: ['Stickler-pro', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-          'grid-pattern': "url('/assets/images/grid.svg')",
+        'grid-pattern': "url('/assets/images/grid.svg')",
+        'grid-pattern-dark': "url('/assets/images/grid-dark.svg')",
       },
       colors: {
         'orange-1': '#FC8F22',
@@ -67,9 +69,21 @@ module.exports = {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        // ADICIONADO: Keyframes para a animação do acordeão
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        }
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
+        // ADICIONADO: Animações para o acordeão
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out'
       },
     },
   },
