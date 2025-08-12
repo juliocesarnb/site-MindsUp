@@ -20,6 +20,7 @@ const Login = () => {
       return;
     }
     alert(isSignUp ? "Cadastro realizado!" : "Login realizado!");
+    setForm({ email: "", password: "", name: "" });
   };
 
   return (
@@ -45,7 +46,7 @@ const Login = () => {
           <h2 className="text-2xl font-semibold text-center text-gray-900 dark:text-white mb-6">
             Sign In
           </h2>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -61,6 +62,8 @@ const Login = () => {
                 required
                 className="w-full px-3 py-2 mt-1 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent text-gray-900 dark:text-white"
                 placeholder="your.email@example.com"
+                value={form.email}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -78,6 +81,8 @@ const Login = () => {
                 required
                 className="w-full px-3 py-2 mt-1 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent text-gray-900 dark:text-white"
                 placeholder="••••••••"
+                value={form.password}
+                onChange={handleChange}
               />
             </div>
             <div>
