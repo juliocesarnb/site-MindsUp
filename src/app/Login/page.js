@@ -23,6 +23,12 @@ const Login = () => {
     setForm({ email: "", password: "", name: "" });
   };
 
+  const toggleSignUp = () => {
+    setIsSignUp(!isSignUp);
+    setError("");
+    setForm({ email: "", password: "", name: "" });
+  };
+
   return (
     <>
       <Navbar />
@@ -44,9 +50,30 @@ const Login = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-semibold text-center text-gray-900 dark:text-white mb-6">
-            Sign In
+            {isSignUp ? 'Sign Up' : 'Sign In'}
           </h2>
           <form className="space-y-4" onSubmit={handleSubmit}>
+            {isSignUp && (
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="w-full px-3 py-2 mt-1 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent text-gray-900 dark:text-white"
+                  placeholder="Your Name"
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
             <div>
               <label
                 htmlFor="email"
@@ -90,18 +117,18 @@ const Login = () => {
                 type="submit"
                 className="w-full py-2.5 px-4 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 transition-colors duration-200"
               >
-                Sign In
+                {isSignUp ? 'Sign Up' : 'Sign In'}
               </button>
             </div>
           </form>
           <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-            Não tem uma conta?{' '}
-            <a
-              href="#"
+            <button
+              type="button"
+              onClick={toggleSignUp}
               className="font-medium text-black dark:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
             >
-              Sign Up
-            </a>
+              {isSignUp ? 'Already have an account? Sign In' : 'Não tem uma conta? Sign Up'}
+            </button>
           </div>
         </div>
       </div>
