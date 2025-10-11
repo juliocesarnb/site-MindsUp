@@ -1,121 +1,141 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import Navbar from "./componentes/Navbar";
-import Background from "./componentes/Background";
-import Footer from "./componentes/Footer";
-import Image from "next/image";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
 import HorizontalScroll from "./componentes/HorizontalScroll";
 import Section3 from "./componentes/Section3";
+import Footer from "./componentes/Footer";
+  
 
 const Home = () => {
-  // 1. Frases do typewriter atualizadas conforme solicitado
-  const [text] = useTypewriter({
-    words: [
-      "guiar suas soluções.",
-      "fazer uma gestão ativa e não reativa.",
-      "evitar perda de estudantes.",
-      "integrar seus dados.",
-      "melhorar a satisfação dos pais.",
-      "engajar os estudantes.",
-    ],
-    loop: {},
-    typeSpeed: 100,
-    deleteSpeed: 60,
-  });
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const words = [
+    "insights precisos.",
+    "resultados reais.",
+    "decisões inteligentes.",
+    "impacto educacional.",
+    "sucesso estudantil.",
+    "transformação digital.",
+  ];
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const current = words[currentIndex];
+
+      if (!isDeleting) {
+        setCurrentText(current.substring(0, currentText.length + 1));
+        if (currentText === current) {
+          setTimeout(() => setIsDeleting(true), 2200);
+        }
+      } else {
+        setCurrentText(current.substring(0, currentText.length - 1));
+        if (currentText === "") {
+          setIsDeleting(false);
+          setCurrentIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 40 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, currentIndex, isDeleting, words]);
 
   return (
-    <main className="bg-gradient-to-r from-[#FFFCFA] to-white text-[#2D2D2D] dark:bg-black dark:text-gray-100 font-inter">
-      <Background>
-        <Navbar />
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-orange-100/20 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-gradient-to-l from-blue-100/20 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-orange-50/10 to-transparent rounded-full blur-2xl"></div>
+        </div>
 
-        <div className="absolute w-full h-full bg-gradient-to-br from-blue-50/30 to-purple-50/30 dark:from-gray-800/30 dark:to-gray-900/30 opacity-50"></div>
-
-        <div className="flex flex-col items-center justify-center min-h-screen w-full px-4 pt-52 sm:px-6 relative z-10 text-center overflow-x-hidden">
-          {/* Container Principal para o Título */}
-          <div className="relative max-w-6xl w-full flex flex-col items-center">
-            {/* TÍTULO SUBSTITUÍDO PELA IMAGEM */}
-            <div className="relative z-10 space-y-2 sm:space-y-3 md:space-y-4">
-              {/* Imagem do Título com versões para Light e Dark Mode */}
-              <div className="px-4">
-                {/* 2. Texto 'alt' atualizado. Lembre-se de alterar o conteúdo visual nos arquivos SVG. */}
-                <Image
-                  src="/assets/images/text-home.svg"
-                  alt="Use dados otimizados para"
-                  width={1000}
-                  height={300}
-                  className="dark:hidden w-full h-auto"
-                  priority
-                />
-                <Image
-                  src="/assets/images/text-home-dark.svg"
-                  alt="Use dados otimizados para"
-                  width={1000}
-                  height={300}
-                  className="hidden dark:block w-full h-auto"
-                  priority
-                />
-              </div>
-
-              {/* Terceira Linha: Typewriter */}
-              {/* 3. Estilo ajustado: removido o padding lateral e ajustado o tamanho da fonte para melhor adaptação às novas frases. */}
-              <div className="text-center text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight tracking-tight min-h-[80px] md:min-h-[100px] flex justify-center items-center">
-                <span className="text-orange-400 dark:text-orange-300">
-                  {text}
-                </span>
-                <Cursor cursorColor="#F97316" />
-                <Image
-                  src="/assets/images/asterisco-menor.svg"
-                  width={50}
-                  height={50}
-                  alt="Asterisco"
-                  className="inline-block align-middle ml-1 sm:ml-2 w-[0.5em] h-[0.5em] sm:w-[0.6em] sm:h-[0.6em] md:w-[0.7em] md:h-[0.7em] lg:w-[0.8em] lg:h-[0.8em] pointer-events-none"
-                />
-              </div>
-            </div>
-
-            {/* Seção de Parágrafo e Botão */}
-            <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-28">
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-500 dark:text-gray-300 leading-loose max-w-2xl lg:max-w-3xl mx-auto px-2">
-                Por meio de análise de dados cognitivos e socioemocionais, a
-                Minds Up oferece uma visão integral, personalizada e acionável
-                para seus estudantes, além de possibilitar novas formas de
-                engajamento de estudantes, pais e professores.
-              </p>
-
-              <div className="mt-8 sm:mt-10 flex flex-col items-center">
-                <button className="bg-orange-300 text-gray-900 dark:bg-orange-400 dark:text-gray-900 px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-medium transition-all duration-300 hover:bg-orange-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 dark:focus:ring-gray-600">
-                  Saiba mais
-                </button>
-
-                {/* SVG com Animação - Responsivo */}
-                <div className="arrows-animation mt-12 sm:mt-16 md:mt-20">
-                  <svg
-                    className="animate-bounce w-8 h-8 sm:w-10 sm:h-10 text-[#383837] dark:text-gray-100"
-                    style={{ animationDuration: "1.5s" }}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17 6L12 11L7 6M17 13L12 18L7 13"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+        {/* Hero */}
+        <section className="relative z-10 max-w-7xl mx-auto px-8 pt-32 pb-40">
+          {/* Badge */}
+          <div className="flex justify-center mb-14">
+            <div className="relative inline-flex items-center gap-4 bg-orange-50/40 backdrop-blur-xl border border-orange-200/40 rounded-full px-7 py-3.5 shadow-lg shadow-orange-100/30">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-2.5 h-2.5 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full animate-pulse"></div>
+                  <div className="absolute inset-0 w-2.5 h-2.5 bg-orange-400 rounded-full animate-ping opacity-20"></div>
                 </div>
+                <span className="text-sm font-semibold text-orange-700 tracking-wide">
+                  EdTech Brasileira
+                </span>
+              </div>
+              <div className="w-px h-4 bg-gradient-to-b from-transparent via-orange-300/50 to-transparent"></div>
+              <span className="text-sm font-medium text-orange-600/80">
+                Ensino Fundamental ao Médio
+              </span>
+            </div>
+          </div>
+
+          {/* Headline */}
+          <div className="text-center space-y-12">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+              <span className="text-slate-700">Transforme </span>
+              <span className="text-slate-700 ">
+                dados educacionais
+              </span>
+              <span className="text-slate-700"> em </span>
+              <span className="text-orange-500">{currentText}</span>
+              <span className="animate-pulse text-orange-400 ml-2">|</span>
+            </h1>
+
+            {/* Value Prop */}
+            <p className="max-w-4xl mx-auto text-xl md:text-2xl text-slate-600 leading-relaxed font-light">
+              A <span className="font-semibold text-slate-700">Minds Up</span> utiliza inteligência artificial e análise de dados socioemocionais
+              para identificar necessidades específicas de cada estudante, oferecendo insights acionáveis que permitem intervenções pedagógicas
+              mais eficazes.
+            </p>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col items-center mt-16 space-y-8">
+            <div className="flex flex-col sm:flex-row gap-6 items-center">
+              <button className="group relative px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-200/40 hover:scale-105 overflow-hidden">
+                <span className="relative z-10 flex items-center gap-3">
+                  Descobrir a Plataforma
+                  <svg
+                    className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              </button>
+
+              <button className="px-8 py-5 bg-white/70 backdrop-blur-sm border-2 border-slate-200/60 hover:border-orange-300/60 text-slate-700 font-semibold text-lg rounded-2xl transition-all duration-300 hover:shadow-lg hover:bg-white/80">
+                Ver Demonstração
+              </button>
+            </div>
+          </div>
+
+          {/* Scroll Indicator - versão corrigida */}
+          <div className="flex justify-center mt-24">
+            <div className="flex flex-col items-center gap-3 cursor-pointer">
+              <div className="text-xs font-medium text-slate-500 tracking-[0.2em] uppercase">
+                Explorar Mais
+              </div>
+              <div className="relative w-8 h-14 rounded-full border-2 border-orange-400/80 overflow-hidden flex justify-center items-start">
+                <span className="absolute top-4 w-2 h-5 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full animate-bounce" />
               </div>
             </div>
           </div>
-        </div>
-
+        </section>
+        {/* HorizontalScroll component should be rendered here if needed */}
         <HorizontalScroll />
         <Section3 />
         <Footer />
-      </Background>
-    </main>
+      </main>
+    </>
   );
 };
 
